@@ -5,14 +5,16 @@ const logger = require("morgan");
 const fs = require("fs");
 const socketIo = require('socket.io');
 const bodyParser = require('body-parser');
-const swaggerUi = require("swagger-ui-express");
+// const swaggerUi = require("swagger-ui-express");
 const { connectDb } = require("./db/connect");
 const winstonLogger = require("./config/logger");
 const cors = require('cors');
 const { parse } = require("yaml");
 
-const packageRoutes = require('./routes/package');
-const deliveryRoutes = require('./routes/delivery');
+const packageRoutes = require('./routes/route.package');
+const deliveryRoutes = require('./routes/route.delivery');
+
+const { sendErrorResponse, sendSuccessResponse } = require("./utils/responses");
 
 
 const app = express();
@@ -31,14 +33,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors({
-  origin: 'http://localhost:3006',
+  origin: '*',
   credentials: true
 }));
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
+app.use(express.json());
 
-app.use('/api/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.get("/", (req, res) => {
+  res.send("Hello from Node API Server Updated");
+});
+
+//app.use('/api/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/package', packageRoutes);
 app.use('/api/delivery', deliveryRoutes);
+
+app.post('/api/ping/', (res, req) => {
+  return sendErrorResponse(res, 'UNAUTHORIZED');
+});
 
 io.on('connection', (socket) => {
   console.log('New client connected');
