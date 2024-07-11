@@ -18,11 +18,10 @@ const packageSchema = new mongoose.Schema({
     lat: { type: Number, default: null },
     lng: { type: Number, default: null },
   },
-  delivery: [{
+  delivery: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Delivery',
-    default: [],
-  }],
+  },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Package', packageSchema);

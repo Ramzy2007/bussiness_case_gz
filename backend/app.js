@@ -107,9 +107,9 @@ io.on('connection', (socket) => {
   });
 });
 
-app.use(function (req, res, next) {
-  next(createError(404));
-});
+// app.use(function (req, res, next) {
+//   next(createError(404));
+// });
 
 app.use(function (err, req, res, next) {
   res.locals.message = err.message;
