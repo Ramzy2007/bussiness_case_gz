@@ -5,6 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
+    "migrate-up": "npx migrate-mongo up",
+    "migrate-down": "npx migrate-mongo down",
+    "migrate-create": "npx migrate-mongo create",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ALEGBEH Ibrahim",
@@ -12,9 +15,18 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "fs": "^0.0.1-security",
+    "js-yaml": "^4.1.0",
+    "migrate-mongo": "^11.0.0",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.0",
-    "socket.io": "^4.7.5"
+    "morgan": "^1.10.0",
+    "socket.io": "^4.7.5",
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.13.1",
+    "winston-daily-rotate-file": "^5.0.0",
+    "yaml": "^2.4.5"
   }
 }

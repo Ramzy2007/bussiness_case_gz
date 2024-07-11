@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   backend:
     build: ./backend
@@ -19,3 +17,4 @@ services:
 
 volumes:
   mongo-data:
+  mongodb-config:

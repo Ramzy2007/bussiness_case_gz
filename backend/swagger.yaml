@@ -1,0 +1,441 @@
+openapi: 3.0.3
+info:
+  title: API
+  description: A
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /users:
+    post:
+      summary: Register User
+      description: Registers a new user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                  minLength: 8
+      responses:
+        '201':
+          description: Successfully registered.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    /login:
+      post:
+        summary: User Login
+        description: Logs in a user.
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                  password:
+                    type: string
+        responses:
+          '200':
+            description: Successfully logged in.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+  /users/{id}/password:
+    put:
+      summary: Update User Password
+      description: Updates the password of a user by ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID of the user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  minLength: 8
+      responses:
+        '200':
+          description: Password updated successfully.
+        '404':
+          description: User not found.
+  /groups:
+    post:
+      summary: Create Group
+      description: Creates a new group.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                members:
+                  type: array
+                  items:
+                    type: string
+                currency:
+                  type: string
+      responses:
+        '201':
+          description: Successfully created group.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    get:
+      summary: Get Groups
+      description: Retrieves all groups.
+      responses:
+        '200':
+          description: A list of groups.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroupModel'
+    put:
+      summary: Update Group
+      description: Updates a group by its ID.
+      parameters:
+        - in: path
+          name: groupId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupUpdatePayload'
+      responses:
+        '200':
+          description: Group updated successfully.
+        '404':
+          description: Group not found.
+    delete:
+      summary: Delete Group
+      description: Deletes a group by its ID.
+      parameters:
+        - in: path
+          name: groupId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Group deleted successfully.
+        '404':
+          description: Group not found.
+  /refunds:
+    post:
+      summary: Create Refund
+      description: Creates a new refund.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundCreationPayload'
+      responses:
+        '201':
+          description: Successfully created refund.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    get:
+      summary: Get All Refunds
+      description: Retrieves all refunds.
+      responses:
+        '200':
+          description: A list of refunds.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RefundModel'
+    /{refundId}:
+      get:
+        summary: Get Refund by ID
+        description: Retrieves a refund by its ID.
+        parameters:
+          - in: path
+            name: refundId
+            required: true
+            schema:
+              type: string
+            description: ID of the refund.
+        responses:
+          '200':
+            description: Refund retrieved successfully.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RefundModel'
+          '404':
+            description: Refund not found.
+  /expenses:
+    post:
+      summary: Create Expense
+      description: Creates a new expense.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpenseCreationPayload'
+      responses:
+        '201':
+          description: Successfully created expense.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    get:
+      summary: Get Expenses
+      description: Retrieves all expenses.
+      responses:
+        '200':
+          description: A list of expenses.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExpenseModel'
+    /{expenseId}:
+      get:
+        summary: Get Expense by ID
+        description: Retrieves an expense by its ID.
+        parameters:
+          - in: path
+            name: expenseId
+            required: true
+            schema:
+              type: string
+        responses:
+          '200':
+            description: Successfully retrieved expense.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ExpenseModel'
+          '404':
+            description: Expense not found.
+  /messages:
+    post:
+      summary: Create Message
+      description: Creates a new message.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageCreationPayload'
+      responses:
+        '201':
+          description: Successfully created message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageModel'
+    get:
+      summary: Get Messages
+      description: Retrieves all messages.
+      responses:
+        '200':
+          description: A list of messages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MessageModel'
+    /{messageId}:
+      get:
+        summary: Get Message by ID
+        description: Retrieves a message
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+          minLength: 8
+    GroupModel:
+      type: object
+      properties:
+        name:
+          type: string
+        members:
+          type: array
+          items:
+            type: string
+        currency:
+          type: string
+    GroupUpdatePayload:
+      type: object
+      properties:
+        name:
+          type: string
+        currency:
+          type: string
+        additionalMembers:
+          type: array
+          items:
+            type: string
+    RefundCreationPayload:
+      type: object
+      properties:
+        sender:
+          type: string
+        beneficiary:
+          type: string
+        amount:
+          type: number
+        reason:
+          type: string
+        date:
+          type: string
+        group:
+          type: string
+    RefundModel:
+      type: object
+      properties:
+        sender:
+          type: string
+        beneficiary:
+          type: string
+        amount:
+          type: number
+        reason:
+          type: string
+        date:
+          type: string
+        group:
+          type: string
+    ExpenseModel:
+      type: object
+      properties:
+        title:
+          type: string
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        payer:
+          type: string
+        receipt:
+          type: string
+        category:
+          type: string
+        receivingUsers:
+          type: array
+          items:
+            type: object
+            properties:
+              user:
+                type: string
+              weight:
+                type: number
+        group:
+          type: string
+    ExpenseCreationPayload:
+      type: object
+      properties:
+        title:
+          type: string
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        payer:
+          type: string
+        receipt:
+          type: string
+        category:
+          type: string
+        receivingUsers:
+          type: array
+          items:
+            type: object
+            properties:
+              user:
+                type: string
+              weight:
+                type: number
+        group:
+          type: string
+    MessageModel:
+      type: object
+      properties:
+        content:
+          type: string
+        sender:
+          type: string
+        receiver:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    MessageCreationPayload:
+      type: object
+      properties:
+        content:
+          type: string
+        sender:
+          type: string
+        receiver:
+          type: string
