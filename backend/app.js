@@ -5,11 +5,9 @@ const logger = require("morgan");
 const fs = require("fs");
 const socketIo = require('socket.io');
 const bodyParser = require('body-parser');
-// const swaggerUi = require("swagger-ui-express");
 const { connectDb } = require("./db/connect");
 const winstonLogger = require("./config/logger");
 const cors = require('cors');
-const { parse } = require("yaml");
 
 const packageRoutes = require('./routes/route.package');
 const deliveryRoutes = require('./routes/route.delivery');
@@ -20,10 +18,6 @@ const { sendErrorResponse, sendSuccessResponse } = require("./utils/responses");
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
-
-const swaggerDocument = parse(
-  fs.readFileSync(path.join(__dirname, "./swagger.yaml"), "utf8")
-);
 
 // Initialize DB
 connectDb().catch(console.error);
@@ -36,7 +30,7 @@ app.use(cors({
   origin: '*',
   credentials: true
 }));
-//app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(express.json());
 
 app.get("/", (req, res) => {
