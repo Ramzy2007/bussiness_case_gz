@@ -1,37 +1,21 @@
 const express = require('express');
-const Delivery = require('../models/model.delivery');
+const { deleteDelivery, updateDelivery, createDelivery, getDelivery, getDeliveries } = require('../controllers/delivery.controller.js');
 
 const router = express.Router();
 
-// Get all deliveries
-router.get('', async (req, res) => {
-    const deliveries = await Delivery.find();
-    res.json(deliveries);
-});
+// Get all Deliverys
+router.get('', getDeliveries);
 
-// Get a single delivery by ID
-router.get('/:id', async (req, res) => {
-    const delivery = await Delivery.findById(req.params.id);
-    res.json(delivery);
-});
+// Get a single Delivery by ID
+router.get('/:id', getDelivery);
 
-// Create a new delivery
-router.post('', async (req, res) => {
-    const delivery = new Delivery(req.body);
-    await delivery.save();
-    res.json(delivery);
-});
+// Create a new Delivery
+router.post('', createDelivery);
 
-// Update a delivery by ID
-router.put('/:id', async (req, res) => {
-    const delivery = await Delivery.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(delivery);
-});
+// Update a Delivery by ID
+router.put('/:id', updateDelivery);
 
-// Delete a delivery by ID
-router.delete('/:id', async (req, res) => {
-    await Delivery.findByIdAndRemove(req.params.id);
-    res.json({ message: 'Delivery deleted' });
-});
+// Delete a Delivery by ID
+router.delete('/:id', deleteDelivery);
 
 module.exports = router;

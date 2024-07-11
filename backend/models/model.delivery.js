@@ -5,8 +5,8 @@ const deliverySchema = new mongoose.Schema({
   start_time: { type: Date, default: null },
   end_time: { type: Date, default: null },
   location: {
-    lat: { type: Number, default: null },
-    lng: { type: Number, default: null },
+    lat: { type: Number, required: true, },
+    lng: { type: Number, required: true, },
   },
   status: {
     type: String,
