@@ -6,7 +6,7 @@ import { PackageService } from '../services/package.service';
 import { ApiResponse, Package } from '../types';
 import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
-import { PackageListComponent } from '../components/package-list/package-list.component';
+import { PackageListComponent } from '../components/package/package-list/package-list.component';
 import { EditPopupComponent } from '../components/edit-popup/edit-popup.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';

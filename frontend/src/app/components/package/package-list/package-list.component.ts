@@ -8,21 +8,21 @@ import {
   AfterViewInit,
   OnInit,
 } from '@angular/core';
-import { ApiResponse, Package } from '../../types';
+import { ApiResponse, Package } from '../../../types';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService } from 'primeng/api';
-import { TruncateNamePipe } from '../../pipes/truncate-name.pipe';
+import { TruncateNamePipe } from '../../../pipes/truncate-name.pipe';
 import { Router, RouterLink } from '@angular/router';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
-import { PackageService } from '../../services/package.service';
+import { PackageService } from '../../../services/package.service';
 
 @Component({
   selector: 'app-package',
