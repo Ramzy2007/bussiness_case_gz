@@ -66,10 +66,13 @@ export class PackageListComponent implements AfterViewInit, OnInit {
     'id_',
     'width',
     'height',
+    'depth',
     'from_name',
     'from_address',
     'to_name',
     'to_address',
+    'from_location',
+    'to_location',
     'description',
     'createdAt',
   ];

@@ -15,8 +15,6 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-admin',
   standalone: true,
   imports: [
-    //MatCardModule,
-    //RouterModule,
     CommonModule,
     PaginatorModule,
     PackageListComponent,
