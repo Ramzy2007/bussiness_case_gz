@@ -1,57 +1,98 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PackageService } from '../../../services/package.service';
+import { PackageService } from '../../../services/package/package.service';
+import { Package } from '../../../interfaces/package';
+import { ApiResponse } from '../../../interfaces/others';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-package-form',
   standalone: true,
-  imports: [],
+  imports: [
+    FormsModule,
+    CommonModule,
+    MatCardModule,
+    MatInputModule, 
+    ReactiveFormsModule,
+    MatButtonModule, 
+    FormsModule, 
+    MatIconModule
+  ],
   templateUrl: './package-form.component.html',
   styleUrl: './package-form.component.css',
 })
 export class PackageFormComponent implements OnInit {
-  packageForm: FormGroup;
   isEdit: boolean = false;
-  packageId: string;
+  packageId!: string;
 
   constructor(
-    private fb: FormBuilder,
     private packageService: PackageService,
-    private route: ActivatedRoute,
-    private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.packageForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-    });
+  package: Package = {
+    description: '',
+    weight: 0,
+    width: 0,
+    height: 0,
+    depth: 0,
+    from_name: '',
+    from_address: '',
+    to_name: '',
+    to_address: '',
+    from_location: { lat: 0, lng: 0 },
+    to_location: { lat: 0, lng: 0 },
+  };
 
-    this.packageId = this.route.snapshot.paramMap.get('id') as string;
-    if (this.packageId) {
-      this.isEdit = true;
+  successMessage: string = '';
+  errorMessage: string = '';
+
+  ngOnInit(): void {
+  }
+
+  onSubmit(form: NgForm) {
+    if (form.valid) {
+      if (this.isEdit) {
+        this.packageService
+        .editPackage(this.packageId, this.package)
+        .subscribe({
+          next: (data: ApiResponse) => {
+            console.log('Form submitted successfully!', this.package);
+          this.successMessage = 'The package has been upgrade successfully!';
+          this.errorMessage = ''; // Reset the error message
+          this.package = data.data as Package;
+          },
+          error: (error) => {
+            console.log(error);
+            this.errorMessage = 'Please correct the errors in the form.<br> ERROR:'+error.data.message;
+            this.successMessage = '';
+          }
+        });
+      } else {
+        console.log('#########################################################');
+        console.log(this.package);
+        console.log('#########################################################');
       this.packageService
-        .getPackage(this.packageId)
-        .subscribe((data: { [key: string]: any }) => {
-          this.packageForm.patchValue(data);
+        .addPackage('http://localhost:3000/api/package',this.package)
+        .subscribe({
+          next: (data: ApiResponse) => {
+            console.log('Form submitted successfully!', this.package);
+          this.successMessage = 'The package has been created successfully!';
+          this.errorMessage = ''; // Reset the error message
+          this.package = data.data as Package;
+          form.reset();
+          },
+          error: (error) => {
+            console.log(error);
+            this.errorMessage = 'Please correct the errors in the form.<br> ERROR:'+error.data.message;
+            this.successMessage = '';
+          }
         });
     }
   }
-
-  onSubmit(): void {
-    if (this.isEdit) {
-      this.packageService
-        .updatePackage(this.packageId, this.packageForm.value)
-        .subscribe(() => {
-          this.router.navigate(['/users']);
-        });
-    } else {
-      this.packageService
-        .createPackage(this.packageForm.value)
-        .subscribe(() => {
-          this.router.navigate(['/packages']);
-        });
-    }
   }
 }

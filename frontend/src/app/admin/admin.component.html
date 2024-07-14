@@ -1,22 +1,36 @@
+<mat-card appearance="outlined" class="p-8 responsive-card">
+  <mat-card-content>
+    <div class="row wrap gap-2 space-between">
+      <app-package-list></app-package-list>
+    </div> 
+    <div class="row wrap gap-2 space-between">
+      
+      <button
+  type="button"
+  pButton
+  icon="pi pi-plus"
+  label="Add Package"
+  class="add-product-btn"
+  (click)="openAddPackageDialog()"
+></button>
 
-<main class="main">
-    <div class="content">
+    </div> 
+  </mat-card-content>
+</mat-card>
+
+<mat-card appearance="outlined" class="responsive-card">
+  <mat-card-content>
     <div class="row wrap gap-2 space-between">
-      <app-package
-      [packageList]="packages"
-        (edit)="toggleEditPopup($event)"
-        (delete)="toggleDeletePopup($event)"
-      ></app-package>
+      <app-delivery-list></app-delivery-list>
     </div> 
     <div class="row wrap gap-2 space-between">
-        <button
-          type="button"
-          pButton
-          icon="pi pi-plus"
-          (click)="toggleAddPopup()"
-          label="Add Package"
-          class="add-product-btn"
-        ></button>
+      <button
+        type="button"
+        pButton
+        icon="pi pi-plus"
+        label="Add Delivery"
+        class="add-product-btn"
+      ></button>
     </div> 
-</div>
-</main>
+  </mat-card-content>
+</mat-card>

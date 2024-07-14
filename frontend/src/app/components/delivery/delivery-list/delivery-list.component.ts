@@ -7,7 +7,6 @@ import {
   AfterViewInit,
   OnInit,
 } from '@angular/core';
-import { Package } from '../../../interfaces/package';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
 import { Router, RouterLink } from '@angular/router';
@@ -16,10 +15,12 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { PackageService } from '../../../services/package/package.service';
+import { Delivery } from '../../../interfaces/delivery';
+import { DeliveryService } from '../../../services/delivery/delivery.service';
 import { ApiResponse } from '../../../interfaces/others';
 
 @Component({
-  selector: 'app-package-list',
+  selector: 'app-delivery-list',
   standalone: true,
   imports: [
     ButtonModule,
@@ -31,58 +32,55 @@ import { ApiResponse } from '../../../interfaces/others';
     MatSortModule,
   ],
   providers: [ConfirmationService],
-  templateUrl: './package-list.component.html',
-  styleUrls: ['./package-list.component.css'],
+  templateUrl: './delivery-list.component.html',
+  styleUrls: ['./delivery-list.component.css'],
 })
-export class PackageListComponent implements AfterViewInit, OnInit {
-  packages: Package[] = [];
-  title = 'Package list';
-  totalRecords: number = 0;
-  rows: number = 12;
+export class DeliveryListComponent implements AfterViewInit, OnInit {
+  packages: Delivery[] = [];
+  title = 'Delivery list';
 
   router = inject(Router);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  @Output() delete: EventEmitter<Package> = new EventEmitter<Package>();
+  @Output() delete: EventEmitter<Delivery> = new EventEmitter<Delivery>();
 
   displayedColumns: string[] = [
     'id_',
-    'width',
-    'height',
-    'depth',
-    'from_name',
-    'from_address',
-    'to_name',
-    'to_address',
-    'from_location',
-    'to_location',
-    'description',
+    'start_time',
+    'end_time',
+    'status',
+    'pickup_time',
+    'location',
+    'package',
+    'updatedAt',
     'createdAt',
   ];
 
-  dataSource: MatTableDataSource<any> = new MatTableDataSource();
+
+
+  dataSource: MatTableDataSource<Delivery> = new MatTableDataSource();
 
   constructor(
-    private packageService: PackageService,
+    private deliveryService: DeliveryService,
   ) {
-    this.fetchPackages();
+    this.fetchDeliveries();
   }
 
   edit(id: number) {
     console.log(id);
-    this.router.navigateByUrl('/package/' + id);
+    this.router.navigateByUrl('/delivery/' + id);
   }
 
-  fetchPackages(page?: number, perPage?: number) {
-    this.packageService
-      .getPackages('http://localhost:3000/api/package')
+  fetchDeliveries(page?: number, perPage?: number) {
+    this.deliveryService
+      .getDeliveries('http://localhost:3000/api/delivery')
       .subscribe({
-        next: (data: ApiResponse) => {
-          this.dataSource.data = data.data as Package[];
+        next: (data) => {
+          this.dataSource.data = data.data as Delivery[];
         },
-        error: (error) => {
+        error: (error: any) => {
           console.log(error);
         },
       });

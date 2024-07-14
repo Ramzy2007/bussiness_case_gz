@@ -1,3 +1,15 @@
+.map-container{
+    height: 400px;
+    width: 400px;
+}
+
+#map{
+    height: 100%;
+    width: 100%;
+    max-width: 400px;
+    z-index: 0;
+}
+
 .dashboard-container {
     display: flex;
     flex-direction: column;
@@ -101,15 +113,3 @@
     width: 120px;
   }
   
-
-  .responsive-card {
-    display: flex;
-    flex-direction: column;
-    margin: 0.5rem; /* Ajuste selon tes besoins */
-  }
-
-  @media (max-width: 768px) {
-    .responsive-card {
-      width: 100%; /* Ajuste la largeur sur mobile */
-    }
-  }

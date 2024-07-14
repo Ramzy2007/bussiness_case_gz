@@ -22,6 +22,7 @@ const packageSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Delivery',
   },
+  active_delivery_id: { type: String, default: null },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Package', packageSchema);

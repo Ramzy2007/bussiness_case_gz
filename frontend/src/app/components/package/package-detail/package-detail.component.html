@@ -1,1 +1,16 @@
-<p>package-detail works!</p>
+<div>
+<div *ngIf="package">
+    <h2>Package Detail</h2>
+    <mat-divider></mat-divider>
+    <p><strong>ID:</strong> {{ package.id_ }}</p>
+    <p><strong>Description:</strong> {{ package.description }}</p>
+    <p><strong>Poids:</strong> {{ package.weight }} kg</p>
+    <p><strong>Dimensions:</strong> {{ package.width }} x {{ package.height }} x {{ package.depth }} cm</p>
+    <p><strong>Expéditeur:</strong> {{ package.from_name }}, {{ package.from_address }}</p>
+    <p><strong>Destinataire:</strong> {{ package.to_name }}, {{ package.to_address }}</p>
+    <p><strong>Lieu d'expédition:</strong> (Lat: {{ package.from_location.lat }}, Lon: {{ package.from_location.lng }})</p>
+    <p><strong>Lieu de livraison:</strong> (Lat: {{ package.to_location.lat }}, Lon: {{ package.to_location.lng }})</p>
+    <p><strong>Créé le:</strong> {{ package.createdAt }}</p>
+    <p><strong>Mis à jour le:</strong> {{ package.updatedAt }}</p>
+  </div>
+</div>

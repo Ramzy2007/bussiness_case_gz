@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
-import { Package } from '../../types';
+import { Package } from '../../interfaces/package';
 import {
   FormBuilder,
   FormsModule,

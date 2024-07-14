@@ -1,1 +1,94 @@
-<p>driver works!</p>
+<!-- package-detail.component.html -->
+<h1 class="center-title">{{ title }}</h1>
+<section>
+  <mat-card appearance="outlined">
+    <mat-card-content>
+      <div class="example-row">
+        <form class="example-form" (ngSubmit)="onSearch()">
+          <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput [formControl]="searchId" [errorStateMatcher]="matcher"
+                   placeholder="Ex. pat@example.com">
+            <mat-hint>Errors appear instantly!</mat-hint>
+            <mat-error *ngIf="searchId.hasError('email') && !searchId.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="searchId.hasError('required')">
+              Package Id is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <button type="submit" mat-fab extended>
+            <mat-icon>search</mat-icon>
+            Tracker
+          </button>
+        </form>
+      </div>
+      <div class="example-row example-flex-container">
+        <div class="example-c-container package-info">
+          <ng-container *ngIf="package !== null; else noPackage">
+            <div class="content-container">
+              <app-package-detail [package]="package"></app-package-detail>
+            </div>
+          </ng-container>
+          <ng-template #noPackage>
+            <div class="content-container">
+              <p>Aucun package trouvé.</p>
+            </div>
+          </ng-template>
+          <ng-container *ngIf="delivery !== null; else noDelivery">
+            <div class="content-container">
+              <app-delivery-detail [delivery]="delivery"></app-delivery-detail>
+            </div>
+          </ng-container>
+          <ng-template #noDelivery>
+            <div class="content-container">
+              <p>Aucune livraison trouvée.</p>
+            </div>
+          </ng-template>
+        </div>
+        <div class="example-c-container map-card">
+            
+            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical 
+            Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at 
+            Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a 
+            Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the 
+            undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et 
+            Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the 
+            theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum 
+            dolor sit amet..", comes from a line in section 1.10.32.
+
+            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. 
+            Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their 
+            exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+
+          </div>
+        <div class="example-c-container status-buttons">
+          <div class="example-row">
+            <button type="submit" mat-fab extended>
+              <mat-icon>search</mat-icon>
+              Picked Up
+            </button>
+          </div>
+          <div class="example-row">
+            <button type="submit" mat-fab extended>
+              <mat-icon>search</mat-icon>
+              In-Transit
+            </button>
+          </div>
+          <div class="example-row">
+            <button type="submit" mat-fab extended>
+              <mat-icon>search</mat-icon>
+              Delivered
+            </button>
+          </div>
+          <div class="example-row">
+            <button type="submit" mat-fab extended>
+              <mat-icon>search</mat-icon>
+              Failed
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>
