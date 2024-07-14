@@ -1,32 +1,48 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ApiService } from './api.service';
+import { ApiResponse, Packages, PaginationParams } from '../types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PackageService {
-  private apiUrl = 'http://localhost:3000/api/package';
+  constructor(private apiService: ApiService) {}
 
-  constructor(private http: HttpClient) {}
+  // Getting packages from the API
+  getPackages = (
+    url: string,
+    params?: PaginationParams
+  ): Observable<ApiResponse> => {
+    console.log('########## 001 ##########');
+    console.log(params);
+    console.log('########## 002 ##########');
+    console.log(url);
+    console.log('########## 003 ##########');
+    return this.apiService.get(url, {
+      params,
+      responseType: 'json',
+    });
+  };
 
-  getPackages(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
-  }
+   // Adding a package via the API
+   addPackage = (url: string, body: any): Observable<any> => {
+    return this.apiService.post(url, body, {});
+  };
 
-  getPackage(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
-  }
+  // Editing a package via the API
+  editPackage = (url: string, body: any): Observable<any> => {
+    return this.apiService.put(url, body, {});
+  };
 
-  createPackage(user: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, user);
-  }
+  // Deleting a package via the API
+  deletePackage = (url: string): Observable<any> => {
+    return this.apiService.delete(url, {});
+  };
 
-  updatePackage(id: string, user: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, user);
-  }
-
-  deletePackage(id: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
-  }
+  getPackage( url: string): Observable<any> {
+    return this.apiService.get(url, {
+      responseType: 'json',
+    });
+}
 }

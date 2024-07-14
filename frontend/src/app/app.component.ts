@@ -1,21 +1,35 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
+import { CommonModule } from '@angular/common';
+import { AdminComponent } from './admin/admin.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterOutlet,
-    MatProgressBarModule,
     MatCardModule,
-    MatChipsModule
+    RouterModule, 
+    CommonModule,
+    MatToolbarModule,
+    MatIconModule,
+    RouterLink,
+    MatButtonModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'Business Case';
+  items = [
+    { title: 'ADMIN', link: 'admin-management', img: 'assets/images/admin.png' },
+    { title: 'TRACKER', link: 'tracker-management', img: 'assets/images/tracker.png' },
+    { title: 'DRIVER', link: 'driver-management', img: 'assets/images/driver.png' }
+  ];
 }

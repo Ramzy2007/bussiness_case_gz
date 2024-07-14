@@ -1,28 +1,10 @@
-<main class="main">
-  <!-- <div class="row"><h1>{{ title }}</h1></div> -->
-  <div class="content">
-    @for (item of [
-          { title: 'ADMIN', link: '/admin-management', img: '' },
-          { title: 'TRACKER', link: '/tracker-management', img: 'assets/images/admin.png' },
-          { title: 'DRIVER', link: '/driver-management', img: '' }
-        ]; track item.title) {
-          <a
-            class="pill"
-            [href]="item.link"
-            rel="noopener"
-          >
-          <div class="left-side">
-            <mat-card class="example-card" appearance="outlined">
-              <mat-card-header>
-                <mat-card-title>{{ item.title }}</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <img mat-card-image src="item.img" alt="Photo of a Shiba Inu">
-              </mat-card-content>
-            </mat-card>
-          </div>
-          </a>
-        }
-  </div>
-</main>
-<router-outlet />
+<mat-toolbar color="primary">
+  <button mat-icon-button class="mr-4" routerLink="/">
+    <mat-icon>home</mat-icon>
+  </button>
+  <span>{{ title }}</span>
+</mat-toolbar>
+
+<div class="flex justify-center w-full px-36 py-8">
+  <router-outlet></router-outlet>
+</div>
