@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatCardModule} from '@angular/material/card';
-import {MatChipsModule} from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
-import { AdminComponent } from './admin/admin.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,7 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatToolbarModule,
     MatIconModule,
     RouterLink,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

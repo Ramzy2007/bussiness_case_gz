@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PackageService } from '../../../services/package/package.service';
-import { Package } from '../../../interfaces/package';
+import { Location, Package } from '../../../interfaces/package';
 import { ApiResponse } from '../../../interfaces/others';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -29,6 +28,8 @@ import { MatIconModule } from '@angular/material/icon';
 export class PackageFormComponent implements OnInit {
   isEdit: boolean = false;
   packageId!: string;
+  locationFrom!: Location;
+  locationTo!: Location;
 
   constructor(
     private packageService: PackageService,

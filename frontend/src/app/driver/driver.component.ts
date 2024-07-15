@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { Package } from '../interfaces/package';
 import { Delivery } from '../interfaces/delivery';
 import { DeliveryService } from '../services/delivery/delivery.service';
+import { GoogleMapsComponent } from '../components/google-maps/google-maps.component';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -36,6 +37,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     MatButtonModule, 
     FormsModule, 
     MatIconModule,
+    GoogleMapsComponent,
     CommonModule
   ],
   templateUrl: './driver.component.html',

@@ -1,80 +1,100 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Socket, SocketIoConfig, SocketIoModule } from "ngx-socket-io";
 import { WayPoints } from '../../interfaces/others';
 import { MapCustomService } from './map-custom.service';
+import { GoogleMap, GoogleMapsModule, MapDirectionsRenderer } from '@angular/google-maps';
+import { Location } from '../../interfaces/package';
 
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @Component({
   selector: 'app-google-maps',
   standalone: true,
   imports: [
     CommonModule,
-    HttpClientModule,
-    BrowserModule
+    GoogleMapsModule
   ],
   templateUrl: './google-maps.component.html',
   styleUrls: ['./google-maps.component.css'] // Note: It's styleUrls, not styleUrl
 })
 export class GoogleMapsComponent implements OnInit {
 
-  @ViewChild('asGeoCoder', { static: true })
-  asGeoCoder!: ElementRef;
-  
-  modeInput = 'start';
-  wayPoints: WayPoints = { start: null, end: null };
-
-  constructor(
-    private mapCustomService: MapCustomService,
-    private renderer2: Renderer2,
-    private socket: Socket
-  ) {}
+  constructor() { 
+    this.directionsService = new google.maps.DirectionsService();
+  }
 
   ngOnInit(): void {
-    this.mapCustomService.buildMap()
-      .then(({ geocoder, map }) => {
-        // Append the geocoder to the asGeoCoder element
-        this.renderer2.appendChild(this.asGeoCoder.nativeElement, geocoder.onAdd(map));
-        console.log('*** Map loaded successfully ***');
-      })
-      .catch((err) => {
-        console.log('******* ERROR ******', err);
+    this.setMarkers();
+    this.calculateRoute();
+  }
+
+  directionsService: google.maps.DirectionsService;
+
+  @ViewChild(GoogleMap) map!: GoogleMap; 
+
+  @Input() locationFrom!: Location;
+  @Input() locationTo!: Location;
+
+  center: google.maps.LatLngLiteral = { lat: 40.730610, lng: -73.935242 };
+  zoom = 12;
+
+  start: google.maps.LatLngLiteral = { lat: 40.730610, lng: -73.935242 };
+  end: google.maps.LatLngLiteral = { lat: 40.712776, lng: -74.005974 };
+
+
+  markerOptions: google.maps.MarkerOptions = {
+    draggable: false
+  }
+
+  markerPositions: google.maps.LatLngLiteral [] = [];
+
+  addMarker(event: google.maps.MapMouseEvent){
+    if(event.latLng != null) this.markerPositions.push(event.latLng.toJSON());
+  }
+
+  setMarkers() {
+    if (this.end) {
+      this.markerPositions.push({
+        lat: this.start.lat,
+        lng: this.start.lng
       });
-
-    this.mapCustomService.cbAddress.subscribe((getPoint) => {
-      if (this.modeInput === 'start') {
-        this.wayPoints.start = getPoint;
-      }
-      if (this.modeInput === 'end') {
-        this.wayPoints.end = getPoint;
-      }
-    });
-
-    this.socket.fromEvent('position')
-      .subscribe(({ coords }: any) => {
-        console.log('******* Position from server ****', coords);
-        this.mapCustomService.addMarkerCustom(coords);
+    }
+    if (this.end) {
+      this.markerPositions.push({
+        lat: this.end.lat,
+        lng: this.end.lng
       });
+    }
   }
 
-  drawRoute(): void {
-    console.log('***** ORIGIN and DESTINATION POINTS', this.wayPoints)
-    const coords = [
-      this.wayPoints.start.center,
-      this.wayPoints.end.center
-    ];
-
-    this.mapCustomService.loadCoords(coords);
+  calculateRoute() {
+    if (this.locationFrom && this.locationTo) {
+      const directionsService = new google.maps.DirectionsService();
+      const request: google.maps.DirectionsRequest = {
+        origin: new google.maps.LatLng(this.locationFrom.lat, this.locationFrom.lng),
+        destination: new google.maps.LatLng(this.locationTo.lat, this.locationTo.lng),
+        travelMode: google.maps.TravelMode.DRIVING
+      };
+  
+      directionsService.route(request, (response, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          const directionsRenderer = new google.maps.DirectionsRenderer();
+          
+          // Vérifiez si this.map.googleMap est défini avant de l'utiliser
+          if (this.map.googleMap) {
+            directionsRenderer.setMap(this.map.googleMap);
+          } else {
+            console.error('La carte n\'est pas disponible');
+          }
+          
+          directionsRenderer.setDirections(response);
+        } else {
+          console.error('Erreur lors du calcul de l\'itinéraire: ' + status);
+        }
+      });
+    }
   }
-
-  changeMode(mode: string): void {
-    this.modeInput = mode;
-  }
-
-  testMarker(): void {
-    this.mapCustomService.addMarkerCustom([-8.628139488926513, 41.159082702543635]);
-  }
+  
 }

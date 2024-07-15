@@ -12,9 +12,10 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { Package } from '../interfaces/package';
+import { Location, Package } from '../interfaces/package';
 import { Delivery } from '../interfaces/delivery';
 import { DeliveryService } from '../services/delivery/delivery.service';
+import { GoogleMapsComponent } from '../components/google-maps/google-maps.component';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -36,6 +37,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     ReactiveFormsModule,
     MatButtonModule, 
     MatIconModule,
+    GoogleMapsComponent,
     CommonModule
   ],
   templateUrl: './tracker.component.html',
@@ -45,6 +47,8 @@ export class TrackerComponent {
   title = 'Web Tracker';
   package!: Package;
   delivery!: Delivery;
+  locationFrom!: Location;
+  locationTo!: Location;
 
   constructor(
     private deliveryService: DeliveryService,
@@ -60,6 +64,8 @@ export class TrackerComponent {
       .subscribe({
         next: (data: ApiResponse) => {
           this.package = data.data as Package;
+          this.locationFrom = this.package.from_location;
+          this.locationTo = this.package.to_location;
           if (this.package.active_delivery_id !== null) {
             this.getDelivery(this.package.active_delivery_id as string);
           }
