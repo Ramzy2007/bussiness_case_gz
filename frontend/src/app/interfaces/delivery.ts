@@ -8,6 +8,6 @@ export interface Delivery {
     pickup_time: string,
     location: Location,
     package: Package[],
-    createdAt: string,
-    updatedAt: string
+    createdAt?: string,
+    updatedAt?: string
   }

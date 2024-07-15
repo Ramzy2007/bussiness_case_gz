@@ -38,7 +38,7 @@
           </mat-form-field> -->
 
           <p>Dimensions (W x H x W)</p>
-          <mat-form-field appearance="fill">
+          <mat-form-field class="form-custom" appearance="fill">
             <mat-label>Width</mat-label>
             <input matInput type="number" [(ngModel)]="package.width" name="width" required min="0" placeholder="width">
             <mat-error *ngIf="packageForm.controls['width']?.invalid && packageForm.controls['width']?.touched">
@@ -46,7 +46,7 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="fill">
+          <mat-form-field class="form-custom" appearance="fill">
             <mat-label>Height</mat-label>
             <input matInput type="number" [(ngModel)]="package.height" name="height" required min="0" placeholder="height">
             <mat-error *ngIf="packageForm.controls['height']?.invalid && packageForm.controls['height']?.touched">
@@ -54,7 +54,7 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="fill">
+          <mat-form-field class="form-custom" appearance="fill">
             <mat-label>Depth</mat-label>
             <input matInput type="number" [(ngModel)]="package.depth" name="depth" required min="0" placeholder="Profondeur">
             <mat-error *ngIf="packageForm.controls['depth']?.invalid && packageForm.controls['depth']?.touched">

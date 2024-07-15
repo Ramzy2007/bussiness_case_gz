@@ -1,3 +1,6 @@
+<div class="container">
+  <h1 class="center-title">{{ title }}</h1>
+  <section>
 <mat-card appearance="outlined" class="p-8 responsive-card">
   <mat-card-content>
     <div class="row wrap gap-2 space-between">
@@ -25,12 +28,15 @@
     </div> 
     <div class="row wrap gap-2 space-between">
       <button
-        type="button"
-        pButton
-        icon="pi pi-plus"
-        label="Add Delivery"
-        class="add-product-btn"
-      ></button>
+      type="button"
+      pButton
+      icon="pi pi-plus"
+      label="Add Delivery"
+      class="add-product-btn"
+      (click)="openAddDeliveryDialog()"
+    ></button>
     </div> 
   </mat-card-content>
 </mat-card>
+</section>
+</div>

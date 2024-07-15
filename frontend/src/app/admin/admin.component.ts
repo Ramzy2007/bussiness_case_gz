@@ -9,6 +9,7 @@ import { DeliveryListComponent } from '../components/delivery/delivery-list/deli
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { PackageFormComponent } from '../components/package/package-form/package-form.component';
+import { DeliveryFormComponent } from '../components/delivery/delivery-form/delivery-form.component';
 
 @Component({
   selector: 'app-admin',
@@ -34,6 +35,12 @@ export class AdminComponent{
 
   openAddPackageDialog() {
     this.dialog.open(PackageFormComponent, {
+      width: '80%', // Ajuste la largeur selon tes besoins
+    });
+  }
+
+  openAddDeliveryDialog() {
+    this.dialog.open(DeliveryFormComponent, {
       width: '80%', // Ajuste la largeur selon tes besoins
     });
   }

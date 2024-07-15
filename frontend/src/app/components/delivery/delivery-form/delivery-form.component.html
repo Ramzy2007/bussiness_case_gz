@@ -1,0 +1,66 @@
+<div class="delivery-form">
+    <mat-card>
+      <mat-card-title ><h3 class="center-title">Delivery actions</h3></mat-card-title>
+      <mat-card-content>
+<form #deliveryForm="ngForm" (ngSubmit)="onSubmit(deliveryForm)">
+    <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    <mat-form-field>
+      <mat-label>Start Time</mat-label>
+      <input matInput name="start_time" [(ngModel)]="delivery.start_time" required type="datetime-local">
+      <mat-error *ngIf="deliveryForm.controls['start_time']?.invalid && deliveryForm.controls['start_time']?.touched">
+        Start Time is required
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>End Time</mat-label>
+      <input matInput name="end_time" [(ngModel)]="delivery.end_time" required type="datetime-local">
+      <mat-error *ngIf="deliveryForm.controls['end_time']?.invalid && deliveryForm.controls['end_time']?.touched">
+        End Time is required
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <input matInput name="status" [(ngModel)]="delivery.status" required>
+      <mat-error *ngIf="deliveryForm.controls['status']?.invalid && deliveryForm.controls['status']?.touched">
+        Status is required
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Pickup Time</mat-label>
+      <input matInput name="pickup_time" [(ngModel)]="delivery.pickup_time" required type="datetime-local">
+      <mat-error *ngIf="deliveryForm.controls['pickup_time']?.invalid && deliveryForm.controls['pickup_time']?.touched">
+        Pickup Time is required
+      </mat-error>
+    </mat-form-field>
+  
+    <div>
+      <h3>Location</h3>
+      <mat-form-field appearance="fill">
+        <mat-label>(Lat):</mat-label>
+        <input matInput [(ngModel)]="delivery.location.lat" name="lat" placeholder="Latitude" required>
+        <mat-error *ngIf="deliveryForm.controls['lat']?.invalid && deliveryForm.controls['lat']?.touched">
+          Localisation est requis.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>(Lng):</mat-label>
+        <input matInput [(ngModel)]="delivery.location.lng" name="from_lng" placeholder="Longitude" required>
+        <mat-error *ngIf="deliveryForm.controls['from_lng']?.invalid && deliveryForm.controls['from_lng']?.touched">
+          Longitude est requis.
+        </mat-error>
+      </mat-form-field>
+        </div>
+  
+    <button mat-raised-button [disabled]="deliveryForm.invalid" type="submit">Submit</button>
+  </form>
+</mat-card-content>
+</mat-card>
+</div>
