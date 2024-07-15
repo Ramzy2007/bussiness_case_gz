@@ -41,7 +41,7 @@ export class DeliveryFormComponent implements OnInit {
     status: '',
     pickup_time: '',
     location: { lat: 0, lng: 0 },
-    package: [],
+    package: '',
   };
 
   successMessage: string = '';

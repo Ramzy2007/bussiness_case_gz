@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { LeafletMapComponent } from '../components/leaflet-map/leaflet-map.component';
 import { PackageDetailComponent } from '../components/package/package-detail/package-detail.component';
@@ -16,6 +16,7 @@ import { Package } from '../interfaces/package';
 import { Delivery } from '../interfaces/delivery';
 import { DeliveryService } from '../services/delivery/delivery.service';
 import { GoogleMapsComponent } from '../components/google-maps/google-maps.component';
+import { WebsocketService } from '../services/websocket/websocket.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -43,45 +44,75 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './driver.component.html',
   styleUrl: './driver.component.css'
 })
-export class DriverComponent {
+export class DriverComponent implements OnInit {
   title = 'Web Driver';
   package!: Package;
   delivery!: Delivery;
+  currentStatus!: string;
 
   constructor(
     private deliveryService: DeliveryService,
-    private packageService: PackageService
+    private packageService: PackageService,
+    private websocketService: WebsocketService
   ) {}
+
+  ngOnInit(): void {
+    //this.websocketService.openWebSocket();
+   
+  }
 
   searchId = new FormControl('', [Validators.required]);
   matcher = new MyErrorStateMatcher();
 
   onSearch() {
     if (this.searchId.valid) {
-      this.packageService.getPackage(`http://localhost:3000/api/package/${this.searchId.value}`)
-      .subscribe({
-        next: (data: ApiResponse) => {
-          this.package = data.data as Package;
-          if (this.package.active_delivery_id !== null) {
-            this.getDelivery(this.package.active_delivery_id as string);
-          }
-        },
-        error: (error) => {
-          console.error('Error fetching package:', error);
-        }
-      });
-    }
-  }
-
-  getDelivery(id: string) {
-    this.deliveryService.getDelivery(`http://localhost:3000/api/delivery/${id}`)
+      this.deliveryService.getDelivery(`http://localhost:3000/api/delivery/${this.searchId.value}`)
       .subscribe({
         next: (data: ApiResponse) => {
           this.delivery = data.data as Delivery;
+          this.currentStatus= this.delivery.status;
+
+          console.log('482858586365565655555555555555885858888855555555555');
+          console.log(this.delivery.package);
+            console.log('##########  End ############');
+          if(typeof this.delivery !== 'undefined'){
+          this.websocketService.getStatusUpdates().subscribe((status: string) => {
+            console.log('##########  getStatus ############');
+            this.currentStatus = status;
+            console.log('##########  End ############');
+          });
+          console.log('##########  2252525252525 ############');
+            this.currentStatus = status;
+            console.log('##########  End ############');
+        }
+
+          if (this.delivery.package !="") {
+            this.getPackage(this.delivery.package as string);
+          }
         },
         error: (error: any) => {
           console.error('Error fetching delivery:', error);
         }
       });
+    }
+  }
+
+  getPackage(id: string) {
+
+    this.packageService.getPackage(`http://localhost:3000/api/package/${id}`)
+      .subscribe({
+        next: (data: ApiResponse) => {
+          this.package = data.data as Package;
+        },
+        error: (error) => {
+          console.error('Error fetching package:', error);
+        }
+      });
+  }
+
+  changeStatus(newStatus: string): void {
+    console.log('##########  ggggggggg ############');
+    this.websocketService.sendStatus({ deliveryId: this.delivery.id_, status: newStatus }); // Use the new method
+    console.log('########## 5 ggggggggg ############');
   }
 }

@@ -13,11 +13,21 @@ const packageRoutes = require('./routes/route.package');
 const deliveryRoutes = require('./routes/route.delivery');
 
 const { sendErrorResponse, sendSuccessResponse } = require("./utils/responses");
-
+const Delivery = require('./models/model.delivery'); // Ensure the Delivery model is imported
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = socketIo(server, {
+  cors: {
+    origin: [
+      "*",
+      "http://localhost:3001",
+      "http://localhost:4200",
+      "http://localhost:8080"
+    ],
+    credentials: true
+  },
+});
 
 // Initialize DB
 connectDb().catch(console.error);
@@ -30,86 +40,51 @@ app.use(cors({
   origin: '*',
   credentials: true
 }));
-app.use(bodyParser.json());
-app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Hello from Node API Server Updated");
 });
 
-//app.use('/api/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/package', packageRoutes);
 app.use('/api/delivery', deliveryRoutes);
 
-app.post('/api/ping/', (res, req) => {
+app.post('/api/ping/', (req, res) => {
   return sendErrorResponse(res, 'UNAUTHORIZED');
 });
 
 io.on('connection', (socket) => {
   console.log('New client connected');
-
-  socket.on('ping', () => {
-    console.log('ok');
-  });
-
-  socket.on('getPackages', async () => {
-    const packages = await Package.find();
-    socket.emit('packages', packages);
-  });
-
-  socket.on('getPackage', async (id) => {
-    const package = await Package.findById(id);
-    socket.emit('package', package);
-  });
-
-  socket.on('addPackage', async (packageData) => {
-    const newPackage = new Package(packageData);
-    await newPackage.save();
-    io.emit('packageAdded', newPackage);
-  });
-
-  socket.on('deletePackage', async (id) => {
-    await Package.findByIdAndRemove(id);
-    io.emit('packageDeleted', id);
-  });
-
-  socket.on('updatePackage', async (data) => {
-    const { id, packageData } = data;
-    const updatedPackage = await Package.findByIdAndUpdate(id, packageData, { new: true });
-    io.emit('packageUpdated', updatedPackage);
-  });
-
-  socket.on('getDeliveries', async () => {
-    const deliveries = await Delivery.find();
-    socket.emit('deliveries', deliveries);
-  });
-
-  socket.on('getDelivery', async (id) => {
-    const delivery = await Delivery.findById(id);
-    socket.emit('delivery', delivery);
-  });
-
-  socket.on('addDelivery', async (deliveryData) => {
-    const newDelivery = new Delivery(deliveryData);
-    await newDelivery.save();
-    io.emit('deliveryAdded', newDelivery);
-  });
-
-  socket.on('deleteDelivery', async (id) => {
-    await Delivery.findByIdAndRemove(id);
-    io.emit('deliveryDeleted', id);
-  });
-
+  
   socket.on('updateDelivery', async (data) => {
-    const { id, deliveryData } = data;
-    const updatedDelivery = await Delivery.findByIdAndUpdate(id, deliveryData, { new: true });
-    io.emit('deliveryUpdated', updatedDelivery);
+    try {
+      const { id, status } = data;
+
+      // Validate the status
+      const validStatuses = ['open', 'picked-up', 'in-transit', 'delivered', 'failed'];
+      if (!validStatuses.includes(status)) {
+        throw new Error('Invalid status');
+      }
+
+      // Update the delivery status in the database
+      const delivery = await Delivery.findById(id);
+      if (!delivery) {
+        throw new Error('Delivery not found');
+      }
+
+      delivery.status = status;
+      await delivery.save();
+
+      // Broadcast the updated status to all connected clients
+      io.emit('deliveryUpdated', { id, status });
+    } catch (error) {
+      socket.emit('error', { error: error.message });
+    }
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
   });
 });
-
-// app.use(function (req, res, next) {
-//   next(createError(404));
-// });
 
 app.use(function (err, req, res, next) {
   res.locals.message = err.message;

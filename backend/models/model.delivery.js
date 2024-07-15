@@ -13,11 +13,11 @@ const deliverySchema = new mongoose.Schema({
     enum: ['open', 'picked-up', 'in-transit', 'delivered', 'failed'],
     default: 'open'
   },
-  package: [{
+  package: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Package',
-    default: [],
-  }],
+    default: null,
+  },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Delivery', deliverySchema);

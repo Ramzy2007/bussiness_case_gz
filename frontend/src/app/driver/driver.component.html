@@ -47,32 +47,57 @@
             </div>
           </ng-template>
         </div>
-        <div class="example-c-container map-card">
+        <div class="map-card">
             
           <app-google-maps></app-google-maps>
           </div>
-        <div class="example-c-container status-buttons">
+        <div class="status-buttons">
           <div class="example-row">
-            <button type="submit" mat-fab extended>
-              <mat-icon>search</mat-icon>
+            <button 
+            type="submit" 
+            [ngClass]="{'disabled-button': currentStatus !== 'open'}"
+            [disabled]="currentStatus !== 'open'" 
+            style="background-color: blue;" 
+            mat-fab 
+            (click)="changeStatus('picked-up')"
+            >
               Picked Up
             </button>
           </div>
+          
           <div class="example-row">
-            <button type="submit" mat-fab extended>
-              <mat-icon>search</mat-icon>
+            <button 
+            type="submit" 
+            [ngClass]="{'disabled-button': currentStatus !== 'picked-up'}"
+            [disabled]="currentStatus !== 'picked-up'" 
+            style="background-color: darkorange;" 
+            mat-fab (click)="changeStatus('in-transit')" 
+            extended
+            >
               In-Transit
             </button>
           </div>
           <div class="example-row">
-            <button type="submit" mat-fab extended>
-              <mat-icon>search</mat-icon>
+            <button 
+            type="submit" 
+            [disabled]="currentStatus !== 'in-transit'" 
+            [ngClass]="{'disabled-button': currentStatus !== 'in-transit'}"
+            style="background-color: forestgreen" 
+            mat-fab (click)="changeStatus('delivered')" 
+            extended
+            >
               Delivered
             </button>
           </div>
           <div class="example-row">
-            <button type="submit" mat-fab extended>
-              <mat-icon>search</mat-icon>
+            <button 
+            type="submit"
+            [ngClass]="{'disabled-button': currentStatus !== 'in-transit'}" 
+            [disabled]="currentStatus !== 'in-transit'" 
+            style="background-color: crimson;" 
+            mat-fab (click)="changeStatus('failed')" 
+            extended
+            >
               Failed
             </button>
           </div>

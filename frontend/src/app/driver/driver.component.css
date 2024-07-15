@@ -2,6 +2,13 @@
 
 button {
     margin: 10px;
+    min-width: 200px;
+  }
+
+  .disabled-button {
+    background-color: lightgray; /* Couleur lorsque le bouton est désactivé */
+    cursor: not-allowed; /* Indique que le bouton n'est pas cliquable */
+    opacity: 0.6; /* Rend le bouton plus transparent */
   }
   
   section {
@@ -58,6 +65,7 @@ button {
     flex: 1 1 10%;
     display: flex;
     flex-direction: column;
+    padding-left: 20px;
   }
   
   .content-container {
@@ -83,13 +91,13 @@ button {
   }
   .example-form {
     min-width: 150px;
-    max-width: 700px;
-    width: 80%;
+    max-width: 100%;
+    width: 1000%;
     padding: 16px;
   }
   
   .example-full-width {
-    width: 80%;
+    width: 65%;
     margin-right: 8px;
     margin-bottom: 8px;
     align-items: center;
