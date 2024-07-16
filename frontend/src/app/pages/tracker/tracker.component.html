@@ -50,11 +50,12 @@
             </ng-template>
           </div>
           </div>
-          <ng-container *ngIf="delivery !== undefined || package !== undefined; else noMap">
+          <ng-container *ngIf="delivery !== undefined && package !== undefined; else noMap">
             <div class="map-card">
               <app-google-maps 
               [locationFrom]="locationFrom" 
               [locationTo]="locationTo"
+              [location]="delivery.location"
               >
               </app-google-maps>
             </div>

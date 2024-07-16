@@ -22,7 +22,7 @@ export class GoogleMapsComponent implements OnInit {
   @Input() locationTo!: Location;
   @Input() location!: Location;
 
-  center: google.maps.LatLngLiteral = { lat: 40.730610, lng: -73.935242 };
+  center: google.maps.LatLngLiteral = { lat: 6.130419, lng: 1.215829 };
   zoom = 12;
 
   start!: google.maps.LatLngLiteral;

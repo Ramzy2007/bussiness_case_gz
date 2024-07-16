@@ -1,0 +1,26 @@
+
+.status-open {
+    color:  gray;
+    font-weight: bold;
+  }
+  
+  .status-picked-up {
+    color: blue;
+    font-weight: bold;
+  }
+  
+  .status-in-transit {
+    color: orange;
+    font-weight: bold;
+  }
+  
+  .status-delivered {
+    color:  green;;
+    font-weight: bold;
+  }
+  
+  .status-failed {
+    color: red;
+    font-weight: bold;
+  }
+  

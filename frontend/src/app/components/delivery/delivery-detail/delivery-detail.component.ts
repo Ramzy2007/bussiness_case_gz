@@ -20,6 +20,23 @@ export class DeliveryDetailComponent implements OnInit {
 
   constructor() {}
 
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'open':
+        return 'status-open';
+      case 'picked-up':
+        return 'status-picked-up';
+      case 'in-transit':
+        return 'status-in-transit';
+      case 'delivered':
+        return 'status-delivered';
+      case 'failed':
+        return 'status-failed';
+      default:
+        return '';
+    }
+  }
+
   ngOnInit(): void {
   
   }
