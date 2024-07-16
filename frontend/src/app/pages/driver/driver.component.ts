@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { PackageDetailComponent } from '../../components/package/package-detail/package-detail.component';
 import { DeliveryDetailComponent } from '../../components/delivery/delivery-detail/delivery-detail.component';
@@ -6,7 +6,6 @@ import { PackageService } from '../../services/package/package.service';
 import { ApiResponse } from '../../interfaces/others';
 import { FormControl, FormGroupDirective, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -44,7 +43,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './driver.component.html',
   styleUrl: './driver.component.css'
 })
-export class DriverComponent implements OnInit {
+export class DriverComponent implements OnInit, OnDestroy {
   title = 'Web Driver';
   package!: Package;
   delivery!: Delivery;

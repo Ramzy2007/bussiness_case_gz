@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { PackageService } from '../../../services/package/package.service';
-import { Location, Package } from '../../../interfaces/package';
+import { Package } from '../../../interfaces/package';
 import { ApiResponse } from '../../../interfaces/others';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -25,8 +25,8 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './package-form.component.html',
   styleUrl: './package-form.component.css',
 })
-export class PackageFormComponent implements OnInit {
-  isEdit: boolean = false;
+export class PackageFormComponent {
+  isEdit = false;
   packageId!: string;
   title= 'Create Package';
 
@@ -48,11 +48,8 @@ export class PackageFormComponent implements OnInit {
     to_location: { lat: 0, lng: 0 },
   };
 
-  successMessage: string = '';
-  errorMessage: string = '';
-
-  ngOnInit(): void {
-  }
+  successMessage = '';
+  errorMessage = '';
 
   onSubmit(form: NgForm) {
     if (form.valid) {

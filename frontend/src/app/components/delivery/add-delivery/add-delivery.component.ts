@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { ButtonModule } from 'primeng/button';
-import { PackageFormComponent } from '../../package/package-form/package-form.component';
 import { DeliveryFormComponent } from '../delivery-form/delivery-form.component';
 
 @Component({

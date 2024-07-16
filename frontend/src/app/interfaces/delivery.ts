@@ -1,4 +1,4 @@
-import { Location, Package } from "./package";
+import { Location } from "./package";
 
 export interface Delivery {
     _id?: string;

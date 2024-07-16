@@ -1,9 +1,7 @@
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { AdminComponent } from './pages/admin/admin.component';
 import { DriverComponent } from './pages/driver/driver.component';
 import { TrackerComponent } from './pages/tracker/tracker.component';
-import { AppComponent } from './app.component';
-import { NgModule } from '@angular/core';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AddPackageComponent } from './components/package/add-package/add-package.component';
 import { AddDeliveryComponent } from './components/delivery/add-delivery/add-delivery.component';

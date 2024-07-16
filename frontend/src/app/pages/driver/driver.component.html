@@ -1,111 +1,129 @@
 <!-- package-detail.component.html -->
 <div class="container">
-<h1 class="center-title">{{ title }}</h1>
-<section>
-  <mat-card appearance="outlined">
-    <mat-card-content>
-      <div class="example-row">
-        <form class="example-form" (ngSubmit)="onSearch()">
-          <mat-form-field class="example-full-width">
-            <mat-label>Search</mat-label>
-            <input type="text" matInput [formControl]="searchId" [errorStateMatcher]="matcher"
-                   placeholder="Delivery Id">
-            <mat-hint>Errors appear instantly!</mat-hint>
-            <mat-error *ngIf="searchId.hasError('required')">
-              Package Id is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-          <button type="submit" mat-fab extended>
-            <mat-icon>search</mat-icon>
-            Tracker
-          </button>
-        </form>
-      </div>
-      <div *ngIf="delivery !== undefined" class="example-row example-flex-container">
-        <div class="example-c-containe package-info">
-          <div class="detail">
-                <div class="content-container" *ngIf="package !== null; else noPackage">
-                  <app-package-detail [package]="package"></app-package-detail>
+  <h1 class="center-title">{{ title }}</h1>
+  <section>
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <div class="example-row">
+          <form class="example-form" (ngSubmit)="onSearch()">
+            <mat-form-field class="example-full-width">
+              <mat-label>Search</mat-label>
+              <input
+                type="text"
+                matInput
+                [formControl]="searchId"
+                [errorStateMatcher]="matcher"
+                placeholder="Delivery Id"
+              />
+              <mat-hint>Errors appear instantly!</mat-hint>
+              <mat-error *ngIf="searchId.hasError('required')">
+                Package Id is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <button type="submit" mat-fab extended>
+              <mat-icon>search</mat-icon>
+              Tracker
+            </button>
+          </form>
+        </div>
+        <div
+          *ngIf="delivery !== undefined"
+          class="example-row example-flex-container"
+        >
+          <div class="example-c-containe package-info">
+            <div class="detail">
+              <div
+                class="content-container"
+                *ngIf="package !== null; else noPackage"
+              >
+                <app-package-detail [package]="package"></app-package-detail>
+              </div>
+              <ng-template #noPackage>
+                <div class="content-container">
+                  <p>No package.</p>
                 </div>
-                <ng-template #noPackage>
-                  <div class="content-container">
-                    <p>No package.</p>
-                  </div>
-                </ng-template>
-              </div>
-          
-              <div class="detail">
-            <div class="content-container" *ngIf="delivery !== null; else noDelivery">
-              <app-delivery-detail [delivery]="delivery"></app-delivery-detail>
+              </ng-template>
             </div>
-            <ng-template #noDelivery>
-              <div class="content-container">
-                <p>No Delivery</p>
+
+            <div class="detail">
+              <div
+                class="content-container"
+                *ngIf="delivery !== null; else noDelivery"
+              >
+                <app-delivery-detail
+                  [delivery]="delivery"
+                ></app-delivery-detail>
               </div>
-            </ng-template>
-       </div>
+              <ng-template #noDelivery>
+                <div class="content-container">
+                  <p>No Delivery</p>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+          <div class="map-card">
+            <app-google-maps
+              [locationFrom]="package.from_location"
+              [locationTo]="package.to_location"
+              [location]="delivery.location"
+            ></app-google-maps>
+          </div>
+          <div class="status-buttons">
+            <div class="example-row">
+              <button
+                type="submit"
+                [ngClass]="{'disabled-button': currentStatus !== 'open'}"
+                [disabled]="currentStatus !== 'open'"
+                style="background-color: blue;"
+                mat-fab
+                (click)="changeStatus('picked-up')"
+              >
+                Picked Up
+              </button>
+            </div>
+
+            <div class="example-row">
+              <button
+                type="submit"
+                [ngClass]="{'disabled-button': currentStatus !== 'picked-up'}"
+                [disabled]="currentStatus !== 'picked-up'"
+                style="background-color: darkorange;"
+                mat-fab
+                (click)="changeStatus('in-transit')"
+                extended
+              >
+                In-Transit
+              </button>
+            </div>
+            <div class="example-row">
+              <button
+                type="submit"
+                [disabled]="currentStatus !== 'in-transit'"
+                [ngClass]="{'disabled-button': currentStatus !== 'in-transit'}"
+                style="background-color: forestgreen;"
+                mat-fab
+                (click)="changeStatus('delivered')"
+                extended
+              >
+                Delivered
+              </button>
+            </div>
+            <div class="example-row">
+              <button
+                type="submit"
+                [ngClass]="{'disabled-button': currentStatus !== 'in-transit'}"
+                [disabled]="currentStatus !== 'in-transit'"
+                style="background-color: crimson;"
+                mat-fab
+                (click)="changeStatus('failed')"
+                extended
+              >
+                Failed
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="map-card">
-            
-          <app-google-maps 
-          [locationFrom]="package.from_location" 
-          [locationTo]="package.to_location"
-          [location]="delivery.location"
-          ></app-google-maps>
-          </div>
-        <div class="status-buttons">
-          <div class="example-row">
-            <button 
-            type="submit" 
-            [ngClass]="{'disabled-button': currentStatus !== 'open'}"
-            [disabled]="currentStatus !== 'open'" 
-            style="background-color: blue;" 
-            mat-fab 
-            (click)="changeStatus('picked-up')"
-            >
-              Picked Up
-            </button>
-          </div>
-          
-          <div class="example-row">
-            <button 
-            type="submit" 
-            [ngClass]="{'disabled-button': currentStatus !== 'picked-up'}"
-            [disabled]="currentStatus !== 'picked-up'" 
-            style="background-color: darkorange;" 
-            mat-fab (click)="changeStatus('in-transit')" 
-            extended
-            >
-              In-Transit
-            </button>
-          </div>
-          <div class="example-row">
-            <button 
-            type="submit" 
-            [disabled]="currentStatus !== 'in-transit'" 
-            [ngClass]="{'disabled-button': currentStatus !== 'in-transit'}"
-            style="background-color: forestgreen" 
-            mat-fab (click)="changeStatus('delivered')" 
-            extended
-            >
-              Delivered
-            </button>
-          </div>
-          <div class="example-row">
-            <button 
-            type="submit"
-            [ngClass]="{'disabled-button': currentStatus !== 'in-transit'}" 
-            [disabled]="currentStatus !== 'in-transit'" 
-            style="background-color: crimson;" 
-            mat-fab (click)="changeStatus('failed')" 
-            extended
-            >
-              Failed
-            </button>
-          </div>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</section>
+      </mat-card-content>
+    </mat-card>
+  </section>
 </div>

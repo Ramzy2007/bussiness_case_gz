@@ -6,9 +6,6 @@ import { PackageListComponent } from '../../components/package/package-list/pack
 import { MatIconModule } from '@angular/material/icon';
 import { DeliveryListComponent } from '../../components/delivery/delivery-list/delivery-list.component';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog } from '@angular/material/dialog';
-import { PackageFormComponent } from '../../components/package/package-form/package-form.component';
-import { DeliveryFormComponent } from '../../components/delivery/delivery-form/delivery-form.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -27,11 +24,11 @@ import { Router } from '@angular/router';
   styleUrl: './admin.component.css'
 })
 
-export class AdminComponent{
+export class AdminComponent {
   constructor( private router: Router) {}
 
    title = 'Web Admin';
-   
+
   navigateToCreatePackage() {
     this.router.navigate(['/admin-management/create-package']);
   }
@@ -40,7 +37,4 @@ export class AdminComponent{
     this.router.navigate(['/admin-management/create-delivery']);
   }
 
-  ngOnInit() {
-    
-  }
 }

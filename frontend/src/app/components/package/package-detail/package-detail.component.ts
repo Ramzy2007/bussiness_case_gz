@@ -1,17 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { PackageService } from '../../../services/package/package.service';
-import { ActivatedRoute } from '@angular/router';
-import { ApiResponse } from '../../../interfaces/others';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Package } from '../../../interfaces/package';
-import { FormsModule } from '@angular/forms';
 import {MatDividerModule} from '@angular/material/divider'
-import { BrowserModule } from '@angular/platform-browser';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
-
 
 @Component({
   selector: 'app-package-detail',
@@ -27,31 +21,7 @@ import { MatListModule } from '@angular/material/list';
   templateUrl: './package-detail.component.html',
   styleUrl: './package-detail.component.css',
 })
-export class PackageDetailComponent implements OnInit {
+export class PackageDetailComponent {
   @Input() package!: Package;
 
-  constructor(
-    private route: ActivatedRoute,
-    private packageService: PackageService
-  ) {}
-
-  // getPackage(id: string) {
-  //   this.packageService
-  //     .getPackage(`http://localhost:3000/api/package/668ff5ef7b2e9d77aec0ae84`)
-  //     .subscribe({
-  //       next: (data: ApiResponse) => {
-  //         console.log(data);
-  //         this.package = data.data;
-  //       },
-  //       error: (error) => {
-  //         console.log(error);
-  //       },
-  //     });
-  // }
-  
-
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id') as string;
-    //this.getPackage(id);
-  }
 }

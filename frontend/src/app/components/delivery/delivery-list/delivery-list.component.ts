@@ -5,7 +5,6 @@ import {
   ViewChild,
   inject,
   AfterViewInit,
-  OnInit,
 } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
@@ -14,10 +13,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
-import { PackageService } from '../../../services/package/package.service';
 import { Delivery } from '../../../interfaces/delivery';
 import { DeliveryService } from '../../../services/delivery/delivery.service';
-import { ApiResponse } from '../../../interfaces/others';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -37,7 +34,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './delivery-list.component.html',
   styleUrls: ['./delivery-list.component.css'],
 })
-export class DeliveryListComponent implements AfterViewInit, OnInit {
+export class DeliveryListComponent implements AfterViewInit {
   packages: Delivery[] = [];
   title = 'Delivery list';
 
@@ -62,7 +59,7 @@ export class DeliveryListComponent implements AfterViewInit, OnInit {
 
 
 
-  dataSource: MatTableDataSource<Delivery> = new MatTableDataSource();
+  dataSource = new MatTableDataSource<Delivery>();
 
   constructor(
     private deliveryService: DeliveryService,
@@ -75,7 +72,7 @@ export class DeliveryListComponent implements AfterViewInit, OnInit {
     this.router.navigateByUrl('/delivery/' + id);
   }
 
-  fetchDeliveries(page?: number, perPage?: number) {
+  fetchDeliveries() {
     this.deliveryService
       .getDeliveries('http://localhost:3000/api/delivery')
       .subscribe({
@@ -117,9 +114,5 @@ export class DeliveryListComponent implements AfterViewInit, OnInit {
       default:
         return '';
     }
-  }
-
-  ngOnInit() {
-    // Initialization logic if needed
   }
 }

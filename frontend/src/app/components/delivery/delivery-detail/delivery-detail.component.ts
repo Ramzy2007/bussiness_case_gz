@@ -1,7 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { DeliveryService } from '../../../services/delivery/delivery.service';
-import { ApiResponse } from '../../../interfaces/others';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Delivery } from '../../../interfaces/delivery';
 import { MatDividerModule } from '@angular/material/divider';
@@ -15,10 +12,8 @@ import { MatDividerModule } from '@angular/material/divider';
   templateUrl: './delivery-detail.component.html',
   styleUrl: './delivery-detail.component.css'
 })
-export class DeliveryDetailComponent implements OnInit {
+export class DeliveryDetailComponent {
   @Input() delivery!: Delivery;
-
-  constructor() {}
 
   getStatusClass(status: string): string {
     switch (status) {
@@ -35,9 +30,5 @@ export class DeliveryDetailComponent implements OnInit {
       default:
         return '';
     }
-  }
-
-  ngOnInit(): void {
-  
   }
 }

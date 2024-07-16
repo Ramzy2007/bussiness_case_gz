@@ -5,7 +5,6 @@ import {
   ViewChild,
   inject,
   AfterViewInit,
-  OnInit,
 } from '@angular/core';
 import { Package } from '../../../interfaces/package';
 import { ButtonModule } from 'primeng/button';
@@ -34,11 +33,11 @@ import { ApiResponse } from '../../../interfaces/others';
   templateUrl: './package-list.component.html',
   styleUrls: ['./package-list.component.css'],
 })
-export class PackageListComponent implements AfterViewInit, OnInit {
+export class PackageListComponent implements AfterViewInit {
   packages: Package[] = [];
   title = 'Package list';
-  totalRecords: number = 0;
-  rows: number = 12;
+  totalRecords = 0;
+  rows = 12;
 
   router = inject(Router);
 
@@ -61,7 +60,7 @@ export class PackageListComponent implements AfterViewInit, OnInit {
     // 'updatedAt'
   ];
 
-  dataSource: MatTableDataSource<any> = new MatTableDataSource();
+  dataSource = new MatTableDataSource<any>();
 
   constructor(
     private packageService: PackageService,
@@ -74,7 +73,7 @@ export class PackageListComponent implements AfterViewInit, OnInit {
     this.router.navigateByUrl('/package/' + id);
   }
 
-  fetchPackages(page?: number, perPage?: number) {
+  fetchPackages() {
     this.packageService
       .getPackages('http://localhost:3000/api/package')
       .subscribe({
@@ -99,26 +98,5 @@ export class PackageListComponent implements AfterViewInit, OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
-  
-  copyToClipboard(text: string): void {
-    const textarea = document.createElement('textarea');
-    textarea.style.position = 'fixed';
-    textarea.style.opacity = '0';
-    textarea.value = text;
-    document.body.appendChild(textarea);
-    textarea.focus();
-    textarea.select();
-    try {
-      document.execCommand('copy');
-      console.log('Copied to clipboard:', text);
-    } catch (err) {
-      console.error('Failed to copy:', err);
-    }
-    document.body.removeChild(textarea);
-  }
-
-  ngOnInit() {
-    // Initialization logic if needed
   }
 }

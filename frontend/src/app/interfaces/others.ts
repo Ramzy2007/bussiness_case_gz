@@ -5,20 +5,15 @@ import { Delivery } from './delivery';
 export interface Options {
   headers?:
     | HttpHeaders
-    | {
-        [header: string]: string | string[];
-      };
+    | Record<string, string | string[]>;
   observe?: 'body';
   context?: HttpContext;
   params?:
     | HttpParams
-    | {
-        [param: string]:
-          | string
+    | Record<string, | string
           | number
           | boolean
-          | ReadonlyArray<string | number | boolean>;
-      };
+          | readonly (string | number | boolean)[]>;
   reportProgress?: boolean;
   responseType?: 'json';
   withCredentials?: boolean;
@@ -41,7 +36,7 @@ export interface PaginationParams {
     | string
     | number
     | boolean
-    | ReadonlyArray<string | number | boolean>;
+    | readonly (string | number | boolean)[];
   page: number;
   perPage: number;
 }

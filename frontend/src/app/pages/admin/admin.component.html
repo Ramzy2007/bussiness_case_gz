@@ -1,42 +1,40 @@
 <div class="container">
   <h1 class="center-title">{{ title }}</h1>
   <section>
-    
-<mat-card appearance="outlined">
-  <mat-card-content>
-    <div class="example-row example-flex-container">
-    <div class="list-section example-c-container">
-      <app-package-list></app-package-list>
-    </div> 
-    <div class="button-section">
-      
-      <button
-  type="button"
-  pButton
-  icon="pi pi-plus"
-  label="Create Package"
-  class="add-product-btn"
-  (click)="navigateToCreatePackage()"
-></button>
-</div>
-    </div> 
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <div class="example-row example-flex-container">
+          <div class="list-section example-c-container">
+            <app-package-list></app-package-list>
+          </div>
+          <div class="button-section">
+            <button
+              type="button"
+              pButton
+              icon="pi pi-plus"
+              label="Create Package"
+              class="add-product-btn"
+              (click)="navigateToCreatePackage()"
+            ></button>
+          </div>
+        </div>
 
-    <div class="example-row example-flex-container mt-8">
-    <div class="list-section example-c-container">
-      <app-delivery-list></app-delivery-list>
-    </div> 
-    <div class="button-section">
-      <button
-      type="button"
-      pButton
-      icon="pi pi-plus"
-      label="Create Delivery"
-      class="add-product-btn"
-      (click)="navigateToCreateDelivery()"
-    ></button>
-    </div> 
-  </div>
-  </mat-card-content>
-</mat-card>
-</section>
+        <div class="example-row example-flex-container mt-8">
+          <div class="list-section example-c-container">
+            <app-delivery-list></app-delivery-list>
+          </div>
+          <div class="button-section">
+            <button
+              type="button"
+              pButton
+              icon="pi pi-plus"
+              label="Create Delivery"
+              class="add-product-btn"
+              (click)="navigateToCreateDelivery()"
+            ></button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
 </div>
