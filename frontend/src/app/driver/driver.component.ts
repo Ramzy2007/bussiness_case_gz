@@ -17,6 +17,7 @@ import { Delivery } from '../interfaces/delivery';
 import { DeliveryService } from '../services/delivery/delivery.service';
 import { GoogleMapsComponent } from '../components/google-maps/google-maps.component';
 import { WebsocketService } from '../services/websocket/websocket.service';
+import { LocationService } from '../services/location/location.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -49,11 +50,14 @@ export class DriverComponent implements OnInit {
   package!: Package;
   delivery!: Delivery;
   currentStatus!: string;
+  private locationInterval: any;
+
 
   constructor(
     private deliveryService: DeliveryService,
     private packageService: PackageService,
-    private websocketService: WebsocketService
+    private websocketService: WebsocketService,
+    private locationService: LocationService
   ) {}
 
   ngOnInit(): void {
@@ -62,11 +66,32 @@ export class DriverComponent implements OnInit {
       this.delivery = data;
       this.currentStatus = data.status;
     });
+
+    this.getLocation();
    
   }
 
   searchId = new FormControl('', [Validators.required]);
   matcher = new MyErrorStateMatcher();
+
+  getLocation(){
+    this.locationInterval = setInterval(() => {
+      this.locationService.getLocation().then(position => {
+        const locationData = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        this.websocketService.sendLocation(
+          {
+            event: 'location_changed', 
+            delivery_id: this.delivery._id as string, 
+            location: locationData 
+          });
+      }).catch(error => {
+        console.error('Error getting location: ', error);
+      });
+    }, 20000);
+  }
 
   onSearch() {
     if (this.searchId.valid) {
@@ -107,5 +132,11 @@ export class DriverComponent implements OnInit {
         delivery_id: this.delivery._id as string, 
         status: newStatus 
       }); // Use the new method
+  }
+
+  ngOnDestroy(): void {
+    if (this.locationInterval) {
+      clearInterval(this.locationInterval);
+    }
   }
 }

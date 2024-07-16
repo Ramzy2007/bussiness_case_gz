@@ -16,6 +16,7 @@ import { Location, Package } from '../interfaces/package';
 import { Delivery } from '../interfaces/delivery';
 import { DeliveryService } from '../services/delivery/delivery.service';
 import { GoogleMapsComponent } from '../components/google-maps/google-maps.component';
+import { WebsocketService } from '../services/websocket/websocket.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -52,11 +53,20 @@ export class TrackerComponent {
 
   constructor(
     private deliveryService: DeliveryService,
-    private packageService: PackageService
+    private packageService: PackageService,
+    private websocketService: WebsocketService
   ) {}
 
   searchId = new FormControl('', [Validators.required]);
   matcher = new MyErrorStateMatcher();
+
+  ngOnInit(): void {
+    //this.websocketService.openWebSocket();
+    this.websocketService.getStatusUpdates().subscribe((data: any) => {
+      this.delivery = data;
+    });
+  }
+
 
   onSearch() {
     if (this.searchId.valid) {

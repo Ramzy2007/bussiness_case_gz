@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Location } from '../../interfaces/package';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,14 @@ export class WebsocketService {
 
   getStatusUpdates() {
     return this.statusSubject.asObservable();
+  }
+
+  sendLocation(data: { event: string, delivery_id: string; location: Location; }): void {
+    if (this.socket.readyState === WebSocket.OPEN) {
+      this.socket.send(JSON.stringify(data));
+    } else {
+      console.error('WebSocket is not open. Unable to send status.');
+    }
   }
 
   sendStatus(data: { event: string, delivery_id: string; status: string; }): void {

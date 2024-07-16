@@ -7,6 +7,7 @@ width="100%"
   *ngFor="let markerPosition of markerPositions" 
   [position]="markerPosition" 
   [options]="markerOptions"
+  (mapClick)="showInfoWindows()"
    >
   </map-marker>
 </google-map>

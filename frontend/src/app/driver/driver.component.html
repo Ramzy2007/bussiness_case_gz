@@ -47,7 +47,11 @@
         </div>
         <div class="map-card">
             
-          <app-google-maps></app-google-maps>
+          <app-google-maps 
+          [locationFrom]="package.from_location" 
+          [locationTo]="package.to_location"
+          [location]="delivery.location"
+          ></app-google-maps>
           </div>
         <div class="status-buttons">
           <div class="example-row">
