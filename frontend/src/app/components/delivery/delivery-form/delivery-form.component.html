@@ -1,21 +1,22 @@
 <div class="delivery-form">
     <mat-card>
-      <mat-card-title ><h3 class="center-title">{{ title }}</h3></mat-card-title>
       <mat-card-content>
 <form #deliveryForm="ngForm" (ngSubmit)="onSubmit(deliveryForm)">
+  <div class="example-row example-flex-container">
+    <div class="input-block">
     <div *ngIf="successMessage" class="success-message">
         {{ successMessage }}
       </div>
       <div *ngIf="errorMessage" class="error-message">
         {{ errorMessage }}
       </div>
-    <mat-form-field>
+    <!-- <mat-form-field>
       <mat-label>Start Time</mat-label>
       <input matInput name="start_time" [(ngModel)]="delivery.start_time" required type="datetime-local">
       <mat-error *ngIf="deliveryForm.controls['start_time']?.invalid && deliveryForm.controls['start_time']?.touched">
         Start Time is required
       </mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <mat-form-field>
       <mat-label>Package</mat-label>
@@ -70,8 +71,11 @@
         </mat-error>
       </mat-form-field>
         </div>
-  
+      </div>
+      <div class="button-block">
     <button mat-raised-button [disabled]="deliveryForm.invalid" type="submit">Submit</button>
+  </div>
+</div>
   </form>
 </mat-card-content>
 </mat-card>

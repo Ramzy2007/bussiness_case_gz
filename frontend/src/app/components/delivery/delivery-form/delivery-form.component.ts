@@ -43,10 +43,10 @@ export class DeliveryFormComponent implements OnInit {
   }
 
   delivery: Delivery = {
-    start_time: '',
-    end_time: '',
-    status: '',
-    pickup_time: '',
+    //start_time: '',
+    //end_time: '',
+    //status: '',
+    //pickup_time: '',
     location: { lat: 0, lng: 0 },
     package: '',
   };

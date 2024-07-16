@@ -48,7 +48,7 @@ export class PackageListComponent implements AfterViewInit, OnInit {
   @Output() delete: EventEmitter<Package> = new EventEmitter<Package>();
 
   displayedColumns: string[] = [
-    'index',
+    'id',
     'from_name',
     'from_address',
     'to_name',
@@ -56,9 +56,9 @@ export class PackageListComponent implements AfterViewInit, OnInit {
     'dimension',
     'from_location',
     'to_location',
-    'description',
+    // 'description',
     'createdAt',
-    'updatedAt'
+    // 'updatedAt'
   ];
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
@@ -99,6 +99,23 @@ export class PackageListComponent implements AfterViewInit, OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  
+  copyToClipboard(text: string): void {
+    const textarea = document.createElement('textarea');
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      console.log('Copied to clipboard:', text);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+    document.body.removeChild(textarea);
   }
 
   ngOnInit() {

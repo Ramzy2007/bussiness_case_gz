@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { PackageFormComponent } from '../../components/package/package-form/package-form.component';
 import { DeliveryFormComponent } from '../../components/delivery/delivery-form/delivery-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -29,7 +30,7 @@ import { DeliveryFormComponent } from '../../components/delivery/delivery-form/d
 })
 
 export class AdminComponent{
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private router: Router) {}
 
    title = 'Web Admin';
 
@@ -43,6 +44,14 @@ export class AdminComponent{
     this.dialog.open(DeliveryFormComponent, {
       width: '80%', // Ajuste la largeur selon tes besoins
     });
+  }
+
+  navigateToCreatePackage() {
+    this.router.navigate(['/admin-management/create-package']);
+  }
+
+  navigateToCreateDelivery() {
+    this.router.navigate(['/admin-management/create-delivery']);
   }
 
   ngOnInit() {

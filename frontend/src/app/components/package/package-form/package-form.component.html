@@ -1,8 +1,9 @@
 <div class="package-form">
     <mat-card>
-      <mat-card-title ><h3 class="center-title">{{ title }}</h3></mat-card-title>
       <mat-card-content>
         <form  #packageForm="ngForm" (ngSubmit)="onSubmit(packageForm)">
+          <div class="example-row example-flex-container">
+          <div class="input-block">
             <div *ngIf="successMessage" class="success-message">
                 {{ successMessage }}
               </div>
@@ -13,34 +14,22 @@
             <mat-label>Description</mat-label>
             <input matInput [(ngModel)]="package.description" name="description" required>
             <mat-error *ngIf="packageForm.controls['description']?.invalid && packageForm.controls['description']?.touched">
-              La description est requise.
+              Description is required.
             </mat-error>
           </mat-form-field>
   
           <mat-form-field appearance="fill">
-            <mat-label>Poids</mat-label>
-            <input matInput type="number" [(ngModel)]="package.weight" name="weight" required min="0">
+            <mat-label>Weight</mat-label>
+            <input matInput type="number" step="0.01" [(ngModel)]="package.weight" name="weight" required min="0">
             <mat-error *ngIf="packageForm.controls['weight']?.invalid && packageForm.controls['weight']?.touched">
-              Le poids est requis et doit être positif.
+              weight is required.
             </mat-error>
           </mat-form-field>
-  
-          <!-- <mat-form-field appearance="fill">
-            <mat-label>Dimensions (L x H x P)</mat-label>
-            <div style="display: flex; gap: 20px;">
-              <input matInput type="number" [(ngModel)]="package.width" name="width" required min="0" placeholder="Largeur">
-              <input matInput type="number" [(ngModel)]="package.height" name="height" required min="0" placeholder="Hauteur">
-              <input matInput type="number" [(ngModel)]="package.depth" name="depth" required min="0" placeholder="Profondeur">
-            </div>
-            <mat-error *ngIf="(packageForm.controls['width']?.invalid || packageForm.controls['height']?.invalid || packageForm.controls['depth']?.invalid) && packageForm.touched">
-              Toutes les dimensions sont requises et doivent être positives.
-            </mat-error>
-          </mat-form-field> -->
 
-          <p>Dimensions (W x H x W)</p>
+          <p>Dimension (W x H x W)</p>
           <mat-form-field class="form-custom" appearance="fill">
             <mat-label>Width</mat-label>
-            <input matInput type="number" [(ngModel)]="package.width" name="width" required min="0" placeholder="width">
+            <input matInput type="number" step="0.01" [(ngModel)]="package.width" name="width" required min="0" placeholder="width">
             <mat-error *ngIf="packageForm.controls['width']?.invalid && packageForm.controls['width']?.touched">
                 width required.
             </mat-error>
@@ -48,7 +37,7 @@
 
           <mat-form-field class="form-custom" appearance="fill">
             <mat-label>Height</mat-label>
-            <input matInput type="number" [(ngModel)]="package.height" name="height" required min="0" placeholder="height">
+            <input matInput type="number" step="0.01" [(ngModel)]="package.height" name="height" required min="0" placeholder="height">
             <mat-error *ngIf="packageForm.controls['height']?.invalid && packageForm.controls['height']?.touched">
                 height required.
             </mat-error>
@@ -56,28 +45,25 @@
 
           <mat-form-field class="form-custom" appearance="fill">
             <mat-label>Depth</mat-label>
-            <input matInput type="number" [(ngModel)]="package.depth" name="depth" required min="0" placeholder="Profondeur">
+            <input matInput type="number" step="0.01" [(ngModel)]="package.depth" name="depth" required min="0" placeholder="Profondeur">
             <mat-error *ngIf="packageForm.controls['depth']?.invalid && packageForm.controls['depth']?.touched">
                 depth required.
             </mat-error>
           </mat-form-field>
-
-
-
   
           <p>From:</p>
           <mat-form-field appearance="fill">
             <mat-label>Name</mat-label>
             <input matInput [(ngModel)]="package.from_name" name="from_name" required>
             <mat-error *ngIf="packageForm.controls['from_name']?.invalid && packageForm.controls['from_name']?.touched">
-              Le nom d'expéditeur est requis.
+              is required.
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Address</mat-label>
             <input matInput [(ngModel)]="package.from_address" name="from_address" required>
             <mat-error *ngIf="packageForm.controls['from_address']?.invalid && packageForm.controls['from_address']?.touched">
-              L'adresse d'expéditeur est requise.
+              is required.
             </mat-error>
           </mat-form-field>
   
@@ -86,68 +72,52 @@
             <mat-label>Nom</mat-label>
             <input matInput [(ngModel)]="package.to_name" name="to_name" required>
             <mat-error *ngIf="packageForm.controls['to_name']?.invalid && packageForm.controls['to_name']?.touched">
-              Le nom de destinataire est requis.
+              is required.
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Adresse</mat-label>
             <input matInput [(ngModel)]="package.to_address" name="to_address" required>
             <mat-error *ngIf="packageForm.controls['to_address']?.invalid && packageForm.controls['to_address']?.touched">
-              L'adresse de destinataire est requise.
+              is required.
             </mat-error>
           </mat-form-field>
   
           <p>Location:</p>
-          <!-- <mat-form-field appearance="fill">
-            <mat-label>De (Lat, Lng)</mat-label>
-            <div style="display: flex; gap: 8px;">
-              <input matInput [(ngModel)]="package.from_location.lat" name="from_lat" placeholder="Latitude" required>
-              <input matInput [(ngModel)]="package.from_location.lng" name="from_lng" placeholder="Longitude" required>
-            </div>
-          </mat-form-field> -->
-
-
           <mat-form-field appearance="fill">
             <mat-label>From (Lat):</mat-label>
-            <input matInput [(ngModel)]="package.from_location.lat" name="from_lat" placeholder="Latitude" required>
+            <input matInput type="number" step="0.01" [(ngModel)]="package.from_location.lat" name="from_lat" placeholder="Latitude" required>
             <mat-error *ngIf="packageForm.controls['from_lat']?.invalid && packageForm.controls['from_lat']?.touched">
-              Localisation est requis.
+              is required.
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>From (Lng):</mat-label>
-            <input matInput [(ngModel)]="package.from_location.lng" name="from_lng" placeholder="Longitude" required>
+            <input matInput type="number" step="0.01" [(ngModel)]="package.from_location.lng" name="from_lng" placeholder="Longitude" required>
             <mat-error *ngIf="packageForm.controls['from_lng']?.invalid && packageForm.controls['from_lng']?.touched">
-              Longitude est requis.
+              is required.
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>To(Lat):</mat-label>
-            <input matInput [(ngModel)]="package.to_location.lat" name="to_lat" placeholder="Latitude" required>
+            <input matInput type="number" step="0.01" [(ngModel)]="package.to_location.lat" name="to_lat" placeholder="Latitude" required>
             <mat-error *ngIf="packageForm.controls['to_lat']?.invalid && packageForm.controls['to_lat']?.touched">
-              Localisation est requis.
+              is required.
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>To (Lng):</mat-label>
-            <input matInput [(ngModel)]="package.to_location.lng" name="to_lng" placeholder="Longitude" required>
+            <input matInput type="number" step="0.01" [(ngModel)]="package.to_location.lng" name="to_lng" placeholder="Longitude" required>
             <mat-error *ngIf="packageForm.controls['to_lng']?.invalid && packageForm.controls['to_lng']?.touched">
               Longitude est requis.
             </mat-error>
           </mat-form-field>
-
-
-  
-          <!-- <mat-form-field appearance="fill">
-            <mat-label>À (Lat, Lng)</mat-label>
-            <div style="display: flex; gap: 8px;">
-              <input matInput [(ngModel)]="package.to_location.lat" name="to_lat" placeholder="Latitude" required>
-              <input matInput [(ngModel)]="package.to_location.lng" name="to_lng" placeholder="Longitude" required>
-            </div>
-          </mat-form-field> -->
-  
-          <button mat-raised-button type="submit" [disabled]="packageForm.invalid">Soumettre</button>
+        </div>
+  <div class="button-block">
+          <button mat-raised-button type="submit" [disabled]="packageForm.invalid">submit</button>
+        </div>
+      </div>
         </form>
       </mat-card-content>
     </mat-card>

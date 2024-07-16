@@ -30,3 +30,32 @@
   .form-custom {
     width: 31%;
   }
+
+.example-flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.input-block, .button-block{
+  margin: 8px 0;
+}
+
+.input-block {
+  flex: 1 1 80%;
+}
+
+
+.button-block {
+  flex: 1 1 20%;
+}
+
+button {
+  margin: 10px;
+  padding: 20px;
+  min-width: 200px;
+  background-color: blueviolet;
+  border-style: hidden;
+  color: antiquewhite;
+  font-size: medium;
+}

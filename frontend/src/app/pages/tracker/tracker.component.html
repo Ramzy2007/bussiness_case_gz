@@ -1,33 +1,30 @@
-<!-- package-detail.component.html -->
-
 <div class="container">
-<h1 class="center-title">{{ title }}</h1>
-<section>
-  <mat-card appearance="outlined">
-    <mat-card-content>
-      <div class="example-row">
-        <form class="example-form" (ngSubmit)="onSearch()">
-          <mat-form-field class="example-full-width">
-            <mat-label>Email</mat-label>
-            <input type="text" matInput [formControl]="searchId" [errorStateMatcher]="matcher"
-                   placeholder="Ex. pat@example.com">
-            <mat-hint>Errors appear instantly!</mat-hint>
-            <mat-error *ngIf="searchId.hasError('email') && !searchId.hasError('required')">
-              Please enter a valid email address
-            </mat-error>
-            <mat-error *ngIf="searchId.hasError('required')">
-              Package Id is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-         
-          <button type="submit" mat-fab extended>
-            <mat-icon>search</mat-icon>
-            Traker
-          </button>
-        </form>
-      </div>
-      <div class="example-row example-flex-container">
-        <div class="example-c-containe package-info">
+  <h1 class="center-title">{{ title }}</h1>
+  <section>
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <div class="example-row">
+          <form class="example-form" (ngSubmit)="onSearch()">
+            <mat-form-field class="example-full-width">
+              <mat-label>Package ID</mat-label>
+              <input type="text" matInput [formControl]="searchId" [errorStateMatcher]="matcher"
+                     placeholder="Enter Package ID">
+              <mat-hint>Errors appear instantly!</mat-hint>
+              <mat-error *ngIf="searchId.hasError('email') && !searchId.hasError('required')">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="searchId.hasError('required')">
+                Package ID is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <button type="submit" mat-fab extended>
+              <mat-icon>search</mat-icon>
+              Tracker
+            </button>
+          </form>
+        </div>
+        <div class="example-row example-flex-container">
+          <div class="example-c-container package-info">
             <ng-container *ngIf="package !== null; else noPackage">
               <div style="margin: 16px;">
                 <app-package-detail [package]="package"></app-package-detail>
@@ -35,10 +32,9 @@
             </ng-container>
             <ng-template #noPackage>
               <div style="margin: 16px;">
-              <p>Aucun package trouvé.</p>
-            </div>
+                <p>No package found.</p>
+              </div>
             </ng-template>
-    
             <ng-container *ngIf="delivery !== null; else noDelivery">
               <div style="margin: 16px;">
                 <app-delivery-detail [delivery]="delivery"></app-delivery-detail>
@@ -46,17 +42,26 @@
             </ng-container>
             <ng-template #noDelivery>
               <div style="margin: 16px;">
-              <p>Aucune livraison trouvée.</p>
-            </div>
+                <p>No delivery found.</p>
+              </div>
             </ng-template>
+          </div>
+          <ng-container *ngIf="delivery !== undefined || package !== undefined; else noMap">
+            <div class="map-card">
+              <app-google-maps 
+              [locationFrom]="locationFrom" 
+              [locationTo]="locationTo"
+              >
+              </app-google-maps>
+            </div>
+          </ng-container>
+          <ng-template #noMap>
+            <div style="margin: 16px;">
+              <p>Map not available.</p>
+            </div>
+          </ng-template>
         </div>
-
-        <div class="map-card">
-          <app-google-maps [locationFrom]="locationFrom" [location]="delivery.location" [locationTo]="locationTo"></app-google-maps>
-        </div>
-          
-        </div>
-    </mat-card-content>
-  </mat-card>
-</section>
+      </mat-card-content>
+    </mat-card>
+  </section>
 </div>

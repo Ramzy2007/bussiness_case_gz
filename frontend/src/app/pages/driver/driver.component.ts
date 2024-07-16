@@ -98,7 +98,7 @@ export class DriverComponent implements OnInit {
       .subscribe({
         next: (data: ApiResponse) => {
           this.delivery = data.data as Delivery;
-          this.currentStatus= this.delivery.status;
+          this.currentStatus= this.delivery.status as string;
 
           if (this.delivery.package !="") {
             this.getPackage(this.delivery.package as string);

@@ -50,6 +50,7 @@ export class TrackerComponent {
   delivery!: Delivery;
   locationFrom!: Location;
   locationTo!: Location;
+  location: Location = {lat: 0, lng: 0};
 
   constructor(
     private deliveryService: DeliveryService,
@@ -65,6 +66,7 @@ export class TrackerComponent {
     this.websocketService.getStatusUpdates().subscribe((data: any) => {
       this.delivery = data;
     });
+    
   }
 
 
@@ -92,6 +94,7 @@ export class TrackerComponent {
       .subscribe({
         next: (data: ApiResponse) => {
           this.delivery = data.data as Delivery;
+          this.location = this.delivery.location;
         },
         error: (error: any) => {
           console.error('Error fetching delivery:', error);

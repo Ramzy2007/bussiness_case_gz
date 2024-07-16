@@ -49,14 +49,14 @@ export class DeliveryListComponent implements AfterViewInit, OnInit {
   @Output() delete: EventEmitter<Delivery> = new EventEmitter<Delivery>();
 
   displayedColumns: string[] = [
-    'index',
+    'id',
     'status',
     'start_time',
     'pickup_time',
     'end_time',
     'location',
     // 'package',
-    'updatedAt',
+    // 'updatedAt',
     'createdAt',
   ];
 
