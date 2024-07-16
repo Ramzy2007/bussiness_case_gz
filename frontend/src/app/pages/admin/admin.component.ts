@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
-import { PackageListComponent } from '../components/package/package-list/package-list.component';
-import { EditPopupComponent } from '../components/edit-popup/edit-popup.component';
+import { PackageListComponent } from '../../components/package/package-list/package-list.component';
+import { EditPopupComponent } from '../../components/edit-popup/edit-popup.component';
 import { MatIconModule } from '@angular/material/icon';
-import { DeliveryListComponent } from '../components/delivery/delivery-list/delivery-list.component';
+import { DeliveryListComponent } from '../../components/delivery/delivery-list/delivery-list.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { PackageFormComponent } from '../components/package/package-form/package-form.component';
-import { DeliveryFormComponent } from '../components/delivery/delivery-form/delivery-form.component';
+import { PackageFormComponent } from '../../components/package/package-form/package-form.component';
+import { DeliveryFormComponent } from '../../components/delivery/delivery-form/delivery-form.component';
 
 @Component({
   selector: 'app-admin',

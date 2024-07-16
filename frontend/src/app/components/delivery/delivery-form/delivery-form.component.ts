@@ -33,6 +33,7 @@ export class DeliveryFormComponent implements OnInit {
   isEdit: boolean = false;
   deliveryId!: string;
   packages!: Package[];
+  title= 'Create Delivery';
 
   constructor(
     private deliveryService: DeliveryService,

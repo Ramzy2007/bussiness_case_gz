@@ -28,8 +28,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class PackageFormComponent implements OnInit {
   isEdit: boolean = false;
   packageId!: string;
-  locationFrom!: Location;
-  locationTo!: Location;
+  title= 'Create Package';
 
   constructor(
     private packageService: PackageService,
@@ -74,9 +73,6 @@ export class PackageFormComponent implements OnInit {
           }
         });
       } else {
-        console.log('#########################################################');
-        console.log(this.package);
-        console.log('#########################################################');
       this.packageService
         .addPackage('http://localhost:3000/api/package',this.package)
         .subscribe({
