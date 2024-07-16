@@ -13,6 +13,8 @@
   .example-card {
     max-width: 400px;
     min-width: 250px;
+    align-items: center;
+    justify-content: center;
     background-color: aliceblue;
   }
   

@@ -18,8 +18,8 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 export class DashboardComponent {
   title = 'Business Case';
   items = [
-    { title: 'WEB ADMIN', link: 'admin-management', img: 'assets/images/admin.png' },
-    { title: 'WEB TRACKER', link: 'tracker-management', img: 'assets/images/tracker.png' },
-    { title: 'WEB DRIVER', link: 'driver-management', img: 'assets/images/driver.png' }
+    { title: 'ADMIN', link: 'admin-management', img: 'assets/images/admin.png' },
+    { title: 'CUSTOMER', link: 'tracker-management', img: 'assets/images/tracker.png' },
+    { title: 'DRIVER', link: 'driver-management', img: 'assets/images/driver.png' }
   ];
 }

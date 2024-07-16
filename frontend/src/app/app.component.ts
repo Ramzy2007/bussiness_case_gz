@@ -26,7 +26,7 @@ export class AppComponent {
   title = 'Business Case';
   items = [
     { title: 'ADMIN', link: 'admin-management', img: 'assets/images/admin.png' },
-    { title: 'TRACKER', link: 'tracker-management', img: 'assets/images/tracker.png' },
+    { title: 'CUSTOMER', link: 'tracker-management', img: 'assets/images/tracker.png' },
     { title: 'DRIVER', link: 'driver-management', img: 'assets/images/driver.png' }
   ];
 }
