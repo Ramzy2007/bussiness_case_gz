@@ -25,6 +25,7 @@
         </div>
         <div class="example-row example-flex-container">
           <div class="example-c-container package-info">
+            <div class="detail">
             <ng-container *ngIf="package !== null; else noPackage">
               <div style="margin: 16px;">
                 <app-package-detail [package]="package"></app-package-detail>
@@ -35,6 +36,8 @@
                 <p>No package found.</p>
               </div>
             </ng-template>
+          </div>
+          <div class="detail">
             <ng-container *ngIf="delivery !== null; else noDelivery">
               <div style="margin: 16px;">
                 <app-delivery-detail [delivery]="delivery"></app-delivery-detail>
@@ -45,6 +48,7 @@
                 <p>No delivery found.</p>
               </div>
             </ng-template>
+          </div>
           </div>
           <ng-container *ngIf="delivery !== undefined || package !== undefined; else noMap">
             <div class="map-card">

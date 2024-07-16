@@ -15,6 +15,7 @@ const deliveryRoutes = require('./routes/route.delivery');
 
 const { sendErrorResponse, sendSuccessResponse } = require("./utils/responses");
 const Delivery = require('./models/model.delivery'); // Ensure the Delivery model is imported
+const Package = require('./models/model.package');
 
 const app = express();
 const server = http.createServer(app);
@@ -111,18 +112,24 @@ handleStatusChanged = async (data) => {
 
   switch (status) {
       case 'picked-up':
+          const package = await Package.findById(delivery.package);
+          if (!package) throw new Error('Package not found');
           delivery.pickup_time = currentTime;
+          package.active_delivery_id = delivery._id;
+          await delivery.save(); 
+          await package.save(); 
           break;
       case 'in-transit':
           delivery.start_time = currentTime;
+          await delivery.save(); 
           break;
       case 'delivered':
       case 'failed':
           delivery.end_time = currentTime;
+          await delivery.save(); 
           break;
   }
-
-  await delivery.save(); // Persist changes
+// Persist changes
 
   broadcast({
       event: 'delivery_updated',
