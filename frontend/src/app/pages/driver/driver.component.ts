@@ -1,6 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { LeafletMapComponent } from '../../components/leaflet-map/leaflet-map.component';
 import { PackageDetailComponent } from '../../components/package/package-detail/package-detail.component';
 import { DeliveryDetailComponent } from '../../components/delivery/delivery-detail/delivery-detail.component';
 import { PackageService } from '../../services/package/package.service';

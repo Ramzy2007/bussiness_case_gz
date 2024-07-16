@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
 import { PackageListComponent } from '../../components/package/package-list/package-list.component';
-import { EditPopupComponent } from '../../components/edit-popup/edit-popup.component';
 import { MatIconModule } from '@angular/material/icon';
 import { DeliveryListComponent } from '../../components/delivery/delivery-list/delivery-list.component';
 import { MatCardModule } from '@angular/material/card';
@@ -20,7 +19,6 @@ import { Router } from '@angular/router';
     PaginatorModule,
     PackageListComponent,
     DeliveryListComponent,
-    EditPopupComponent,
     ButtonModule,
     MatIconModule,
     MatCardModule
@@ -30,22 +28,10 @@ import { Router } from '@angular/router';
 })
 
 export class AdminComponent{
-  constructor(private dialog: MatDialog, private router: Router) {}
+  constructor( private router: Router) {}
 
    title = 'Web Admin';
-
-  openAddPackageDialog() {
-    this.dialog.open(PackageFormComponent, {
-      width: '80%', // Ajuste la largeur selon tes besoins
-    });
-  }
-
-  openAddDeliveryDialog() {
-    this.dialog.open(DeliveryFormComponent, {
-      width: '80%', // Ajuste la largeur selon tes besoins
-    });
-  }
-
+   
   navigateToCreatePackage() {
     this.router.navigate(['/admin-management/create-package']);
   }
