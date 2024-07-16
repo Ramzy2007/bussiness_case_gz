@@ -34,7 +34,7 @@ export class EditPopupComponent implements OnInit, OnChanges {
   @Input() header!: string;
 
   @Input() package: Package = {
-    id_: "",
+    _id: "",
     description: "",
     weight: 0,
     width: 0,

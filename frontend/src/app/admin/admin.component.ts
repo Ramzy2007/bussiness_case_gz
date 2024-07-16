@@ -31,7 +31,7 @@ import { DeliveryFormComponent } from '../components/delivery/delivery-form/deli
 export class AdminComponent{
   constructor(private dialog: MatDialog) {}
 
-   title = 'Admintration';
+   title = 'Web Admin';
 
   openAddPackageDialog() {
     this.dialog.open(PackageFormComponent, {

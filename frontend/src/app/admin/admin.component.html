@@ -1,41 +1,41 @@
 <div class="container">
   <h1 class="center-title">{{ title }}</h1>
   <section>
-<mat-card appearance="outlined" class="p-8 responsive-card">
+    
+<mat-card appearance="outlined">
   <mat-card-content>
-    <div class="row wrap gap-2 space-between">
+    <div class="example-row example-flex-container">
+    <div class="list-section example-c-container">
       <app-package-list></app-package-list>
     </div> 
-    <div class="row wrap gap-2 space-between">
+    <div class="button-section">
       
       <button
   type="button"
   pButton
   icon="pi pi-plus"
-  label="Add Package"
+  label="Create Package"
   class="add-product-btn"
   (click)="openAddPackageDialog()"
 ></button>
-
+</div>
     </div> 
-  </mat-card-content>
-</mat-card>
 
-<mat-card appearance="outlined" class="responsive-card">
-  <mat-card-content>
-    <div class="row wrap gap-2 space-between">
+    <div class="example-row example-flex-container mt-8">
+    <div class="list-section example-c-container">
       <app-delivery-list></app-delivery-list>
     </div> 
-    <div class="row wrap gap-2 space-between">
+    <div class="button-section">
       <button
       type="button"
       pButton
       icon="pi pi-plus"
-      label="Add Delivery"
+      label="Create Delivery"
       class="add-product-btn"
       (click)="openAddDeliveryDialog()"
     ></button>
     </div> 
+  </div>
   </mat-card-content>
 </mat-card>
 </section>

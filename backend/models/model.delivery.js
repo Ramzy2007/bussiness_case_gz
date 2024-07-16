@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const deliverySchema = new mongoose.Schema({
-  pickup_time: { type: Date, default: Date.now },
+  pickup_time: { type: Date, default: null },
   start_time: { type: Date, default: null },
   end_time: { type: Date, default: null },
   location: {
-    lat: { type: Number, required: true, },
-    lng: { type: Number, required: true, },
+    lat: { type: Number, default: null, },
+    lng: { type: Number, default: null, },
   },
   status: {
     type: String,
@@ -16,7 +16,7 @@ const deliverySchema = new mongoose.Schema({
   package: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Package',
-    default: null,
+    required: true,
   },
 }, { timestamps: true });
 

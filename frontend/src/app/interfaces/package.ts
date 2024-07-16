@@ -12,7 +12,7 @@ export interface Location{
 }
 
 export interface Package {
-  id_?: string;
+  _id?: string;
   active_delivery_id?: string,
   description: string,
   weight: number,

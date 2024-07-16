@@ -4,11 +4,14 @@ import { DeliveryService } from '../../../services/delivery/delivery.service';
 import { ApiResponse } from '../../../interfaces/others';
 import { CommonModule } from '@angular/common';
 import { Delivery } from '../../../interfaces/delivery';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-delivery-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatDividerModule,],
   templateUrl: './delivery-detail.component.html',
   styleUrl: './delivery-detail.component.css'
 })

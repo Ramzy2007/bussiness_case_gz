@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Delivery } from '../../../interfaces/delivery';
 import { DeliveryService } from '../../../services/delivery/delivery.service';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-delivery-form',
@@ -22,7 +23,8 @@ import { DeliveryService } from '../../../services/delivery/delivery.service';
     ReactiveFormsModule,
     MatButtonModule, 
     FormsModule, 
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   templateUrl: './delivery-form.component.html',
   styleUrl: './delivery-form.component.css'
@@ -30,10 +32,14 @@ import { DeliveryService } from '../../../services/delivery/delivery.service';
 export class DeliveryFormComponent implements OnInit {
   isEdit: boolean = false;
   deliveryId!: string;
+  packages!: Package[];
 
   constructor(
     private deliveryService: DeliveryService,
-  ) {}
+    private packageService: PackageService,
+  ) {
+    this.fetchPackages();
+  }
 
   delivery: Delivery = {
     start_time: '',
@@ -48,6 +54,19 @@ export class DeliveryFormComponent implements OnInit {
   errorMessage: string = '';
 
   ngOnInit(): void {
+  }
+
+  fetchPackages(page?: number, perPage?: number) {
+    this.packageService
+      .getPackages('http://localhost:3000/api/package')
+      .subscribe({
+        next: (data: ApiResponse) => {
+          this.packages = data.data as Package[];
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 
   onSubmit(form: NgForm) {

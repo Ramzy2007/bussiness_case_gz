@@ -16,11 +16,11 @@ export class WebsocketService {
     this.socket = new WebSocket('ws://localhost:3000');
 
     this.socket.onmessage = (event) => {
-      const status = JSON.parse(event.data).status;
+      const data = JSON.parse(event.data);
       console.log('....................................................');
-      console.log(status);
+      console.log(event.data);
       console.log('*****************************************************');
-      this.statusSubject.next(status);
+      this.statusSubject.next(data.data);
     };
 
     // this.socket.onclose = (event) => {
@@ -49,10 +49,9 @@ export class WebsocketService {
     return this.statusSubject.asObservable();
   }
 
-  sendStatus(data: { deliveryId: any; status: any; }): void {
-   const { deliveryId, status } = data;
+  sendStatus(data: { event: string, delivery_id: string; status: string; }): void {
     if (this.socket.readyState === WebSocket.OPEN) {
-      this.socket.send(JSON.stringify({ deliveryId: deliveryId, status: status }));
+      this.socket.send(JSON.stringify(data));
     } else {
       console.error('WebSocket is not open. Unable to send status.');
     }

@@ -58,6 +58,10 @@ export class DriverComponent implements OnInit {
 
   ngOnInit(): void {
     //this.websocketService.openWebSocket();
+    this.websocketService.getStatusUpdates().subscribe((data: any) => {
+      this.delivery = data;
+      this.currentStatus = data.status;
+    });
    
   }
 
@@ -71,20 +75,6 @@ export class DriverComponent implements OnInit {
         next: (data: ApiResponse) => {
           this.delivery = data.data as Delivery;
           this.currentStatus= this.delivery.status;
-
-          console.log('482858586365565655555555555555885858888855555555555');
-          console.log(this.delivery.package);
-            console.log('##########  End ############');
-          if(typeof this.delivery !== 'undefined'){
-          this.websocketService.getStatusUpdates().subscribe((status: string) => {
-            console.log('##########  getStatus ############');
-            this.currentStatus = status;
-            console.log('##########  End ############');
-          });
-          console.log('##########  2252525252525 ############');
-            this.currentStatus = status;
-            console.log('##########  End ############');
-        }
 
           if (this.delivery.package !="") {
             this.getPackage(this.delivery.package as string);
@@ -111,8 +101,11 @@ export class DriverComponent implements OnInit {
   }
 
   changeStatus(newStatus: string): void {
-    console.log('##########  ggggggggg ############');
-    this.websocketService.sendStatus({ deliveryId: this.delivery.id_, status: newStatus }); // Use the new method
-    console.log('########## 5 ggggggggg ############');
+    this.websocketService.sendStatus(
+      { 
+        event: 'status_changed', 
+        delivery_id: this.delivery._id as string, 
+        status: newStatus 
+      }); // Use the new method
   }
 }

@@ -16,8 +16,20 @@
         Start Time is required
       </mat-error>
     </mat-form-field>
-  
+
     <mat-form-field>
+      <mat-label>Package</mat-label>
+      <mat-select name="package" [(ngModel)]="delivery.package" required>
+        <mat-option *ngFor="let package of packages" [value]="package._id">
+          {{ package.from_name }} >> {{ package.to_name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="deliveryForm.controls['package']?.invalid && deliveryForm.controls['package']?.touched">
+        Package is required
+      </mat-error>
+    </mat-form-field>
+  
+    <!-- <mat-form-field>
       <mat-label>End Time</mat-label>
       <input matInput name="end_time" [(ngModel)]="delivery.end_time" required type="datetime-local">
       <mat-error *ngIf="deliveryForm.controls['end_time']?.invalid && deliveryForm.controls['end_time']?.touched">
@@ -32,14 +44,14 @@
         Status is required
       </mat-error>
     </mat-form-field>
-  
+    
     <mat-form-field>
       <mat-label>Pickup Time</mat-label>
       <input matInput name="pickup_time" [(ngModel)]="delivery.pickup_time" required type="datetime-local">
       <mat-error *ngIf="deliveryForm.controls['pickup_time']?.invalid && deliveryForm.controls['pickup_time']?.touched">
         Pickup Time is required
       </mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
   
     <div>
       <h3>Location</h3>

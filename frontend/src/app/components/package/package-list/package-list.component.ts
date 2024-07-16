@@ -48,18 +48,17 @@ export class PackageListComponent implements AfterViewInit, OnInit {
   @Output() delete: EventEmitter<Package> = new EventEmitter<Package>();
 
   displayedColumns: string[] = [
-    'id_',
-    'width',
-    'height',
-    'depth',
+    'index',
     'from_name',
     'from_address',
     'to_name',
     'to_address',
+    'dimension',
     'from_location',
     'to_location',
     'description',
     'createdAt',
+    'updatedAt'
   ];
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource();

@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const { connectDb } = require("./db/connect");
 const winstonLogger = require("./config/logger");
 const cors = require('cors');
+const WebSocket = require('ws');
 
 const packageRoutes = require('./routes/route.package');
 const deliveryRoutes = require('./routes/route.delivery');
@@ -17,17 +18,8 @@ const Delivery = require('./models/model.delivery'); // Ensure the Delivery mode
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server, {
-  cors: {
-    origin: [
-      "*",
-      "http://localhost:3001",
-      "http://localhost:4200",
-      "http://localhost:8080"
-    ],
-    credentials: true
-  },
-});
+
+const wss = new WebSocket.Server({ server });
 
 // Initialize DB
 connectDb().catch(console.error);
@@ -52,39 +44,92 @@ app.post('/api/ping/', (req, res) => {
   return sendErrorResponse(res, 'UNAUTHORIZED');
 });
 
-io.on('connection', (socket) => {
-  console.log('New client connected');
-  
-  socket.on('updateDelivery', async (data) => {
-    try {
-      const { id, status } = data;
+// WebSocket connection
+wss.on('connection', (ws) => {
+  ws.on('message', async (message) => {
+      try {
+          const data = JSON.parse(message);
 
-      // Validate the status
-      const validStatuses = ['open', 'picked-up', 'in-transit', 'delivered', 'failed'];
-      if (!validStatuses.includes(status)) {
-        throw new Error('Invalid status');
+          // Handle different events
+          switch (data.event) {
+              case 'location_changed':
+                  await handleLocationChanged(data);
+                  break;
+
+              case 'status_changed':
+                  await handleStatusChanged(data);
+                  break;
+
+              default:
+                  console.error('Unknown event:', data.event);
+                  break;
+          }
+      } catch (err) {
+          console.error('Error processing message:', err);
+          // Optionally send an error response back to the client
       }
-
-      // Update the delivery status in the database
-      const delivery = await Delivery.findById(id);
-      if (!delivery) {
-        throw new Error('Delivery not found');
-      }
-
-      delivery.status = status;
-      await delivery.save();
-
-      // Broadcast the updated status to all connected clients
-      io.emit('deliveryUpdated', { id, status });
-    } catch (error) {
-      socket.emit('error', { error: error.message });
-    }
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Client disconnected');
   });
 });
+
+ // Utility function to broadcast updates
+ function broadcast(data) {
+  wss.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+          client.send(JSON.stringify(data));
+      }
+  });
+}
+
+
+handleLocationChanged = async (data) => {
+  const { delivery_id, location } = data;
+
+  const delivery = await Delivery.findById(delivery_id);
+  if (!delivery) throw new Error('Delivery not found');
+
+  delivery.location = location;
+  await delivery.save(); // Persist changes
+
+  broadcast({
+      event: 'delivery_updated',
+      data: delivery
+  });
+}
+
+// Handle status change
+handleStatusChanged = async (data) => {
+  const { delivery_id, status } = data;
+  const delivery = await Delivery.findById(delivery_id);
+  if (!delivery) throw new Error('Delivery not found');
+
+  const currentTime = new Date().toISOString();
+  const validStatuses = ['picked-up', 'in-transit', 'delivered', 'failed'];
+
+  if (!validStatuses.includes(status)) throw new Error('Invalid status');
+
+  delivery.status = status;
+
+  switch (status) {
+      case 'picked-up':
+          delivery.pickup_time = currentTime;
+          break;
+      case 'in-transit':
+          delivery.start_time = currentTime;
+          break;
+      case 'delivered':
+      case 'failed':
+          delivery.end_time = currentTime;
+          break;
+  }
+
+  await delivery.save(); // Persist changes
+
+  broadcast({
+      event: 'delivery_updated',
+      data: delivery
+  });
+
+}
 
 app.use(function (err, req, res, next) {
   res.locals.message = err.message;

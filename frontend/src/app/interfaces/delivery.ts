@@ -1,7 +1,7 @@
 import { Location, Package } from "./package";
 
 export interface Delivery {
-    id_?: string;
+    _id?: string;
     start_time: string,
     end_time: string,
     status: string,

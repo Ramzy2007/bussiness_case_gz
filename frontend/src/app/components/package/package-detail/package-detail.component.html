@@ -1,16 +1,70 @@
 <div>
 <div *ngIf="package">
-    <h2>Package Detail</h2>
+    <h4>Package Detail</h4>
     <mat-divider></mat-divider>
-    <p><strong>ID:</strong> {{ package.id_ }}</p>
-    <p><strong>Description:</strong> {{ package.description }}</p>
-    <p><strong>Poids:</strong> {{ package.weight }} kg</p>
-    <p><strong>Dimensions:</strong> {{ package.width }} x {{ package.height }} x {{ package.depth }} cm</p>
-    <p><strong>Expéditeur:</strong> {{ package.from_name }}, {{ package.from_address }}</p>
-    <p><strong>Destinataire:</strong> {{ package.to_name }}, {{ package.to_address }}</p>
-    <p><strong>Lieu d'expédition:</strong> (Lat: {{ package.from_location.lat }}, Lon: {{ package.from_location.lng }})</p>
-    <p><strong>Lieu de livraison:</strong> (Lat: {{ package.to_location.lat }}, Lon: {{ package.to_location.lng }})</p>
-    <p><strong>Créé le:</strong> {{ package.createdAt }}</p>
-    <p><strong>Mis à jour le:</strong> {{ package.updatedAt }}</p>
+    <strong>ID:</strong> {{ package._id }}<br>
+    <strong>Weight:</strong> {{ package.weight }} kg<br>
+    <strong>Dimensions:</strong> {{ package.width }} x {{ package.height }} x {{ package.depth }} cm<br>
+    <strong>From name:</strong> {{ package.from_name }}, {{ package.from_address }}<br>
+    <strong>To name:</strong> {{ package.to_name }}, {{ package.to_address }}<br>
+    <strong>From Location:</strong> (Lat: {{ package.from_location.lat }}, Lon: {{ package.from_location.lng }})<br>
+    <strong>To Location:</strong> (Lat: {{ package.to_location.lat }}, Lon: {{ package.to_location.lng }})<br>
+    <strong>Description:</strong> {{ package.description }}<br>
+    <strong>Created At:</strong> {{ package.createdAt }}<br>
+    <strong>Updated At:</strong> {{ package.updatedAt }}<br>
   </div>
-</div>
+</div> 
+<!-- 
+<mat-card *ngIf="package" class="package-detail-card">
+  <mat-card-header>
+    <mat-card-title>Package Detail</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item>
+        <span matLine>ID:</span>
+        <span matLine>{{ package.id_ }}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matLine>Description:</span>
+        <span matLine>{{ package.description }}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matLine>Poids:</span>
+        <span matLine>{{ package.weight }} kg</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matLine>Dimensions:</span>
+        <span matLine>{{ package.weight }} x {{ package.height }} x {{ package.depth }}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matLine>Expéditeur:</span>
+        <span matLine>{{ package.from_name }}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matLine>Destinataire:</span>
+        <span matLine>{{ package.to_name }}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matLine>Lieu d'expédition:</span>
+        <span matLine>(Lat: {{ package.from_location.lat }}, Lng: {{ package.from_location.lng }})</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matLine>Lieu de livraison:</span>
+        <span matLine>(Lat: {{ package.to_location.lat }}, Lon: {{ package.to_location.lng }})</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matLine>Créé le:</span>
+        <span matLine>{{ package.createdAt | date:'medium' }}</span>
+      </mat-list-item>
+      <mat-list-item>
+        <span matLine>Mis à jour le:</span>
+        <span matLine>{{ package.updatedAt | date:'medium' }}</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Modifier</button>
+    <button mat-button color="warn">Supprimer</button>
+  </mat-card-actions>
+</mat-card> -->

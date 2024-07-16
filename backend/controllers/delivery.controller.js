@@ -54,6 +54,45 @@ const updateDelivery = async (req, res) => {
     }
 }
 
+const updateDeliveryBySocket = async (data) => {
+try {
+    const { id, status } = data;
+
+    // Validate the status
+    const validStatuses = ['open', 'picked-up', 'in-transit', 'delivered', 'failed'];
+    if (!validStatuses.includes(status)) {
+      throw new Error('Invalid status');
+    }
+
+    // Update the delivery status in the database
+    const delivery = await Delivery.findById(id);
+    if (!delivery) {
+      throw new Error('Delivery not found');
+    }
+
+    // take current date time if picked
+    if (status='picked-up') {
+        delivery.pickup_time = new Date();
+    }
+
+    if (status='in-transit') {
+        delivery.start_time = new Date();
+    }
+
+    if (status='delivered') {
+        delivery.end_time = new Date();
+    }
+
+    delivery.status = status;
+    await delivery.save();
+
+    // Broadcast the updated status to all connected clients
+    io.emit('deliveryUpdated', { id, status });
+  } catch (error) {
+    socket.emit('error', { error: error.message });
+  }
+}
+
 // For deleting data from database 
 const deleteDelivery = async (req, res) => {
     try {

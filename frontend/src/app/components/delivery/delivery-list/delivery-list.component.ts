@@ -18,6 +18,7 @@ import { PackageService } from '../../../services/package/package.service';
 import { Delivery } from '../../../interfaces/delivery';
 import { DeliveryService } from '../../../services/delivery/delivery.service';
 import { ApiResponse } from '../../../interfaces/others';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-delivery-list',
@@ -30,6 +31,7 @@ import { ApiResponse } from '../../../interfaces/others';
     MatInputModule,
     MatTableModule,
     MatSortModule,
+    CommonModule
   ],
   providers: [ConfirmationService],
   templateUrl: './delivery-list.component.html',
@@ -47,13 +49,13 @@ export class DeliveryListComponent implements AfterViewInit, OnInit {
   @Output() delete: EventEmitter<Delivery> = new EventEmitter<Delivery>();
 
   displayedColumns: string[] = [
-    'id_',
-    'start_time',
-    'end_time',
+    'index',
     'status',
+    'start_time',
     'pickup_time',
+    'end_time',
     'location',
-    'package',
+    // 'package',
     'updatedAt',
     'createdAt',
   ];
@@ -97,6 +99,23 @@ export class DeliveryListComponent implements AfterViewInit, OnInit {
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'open':
+        return 'status-open';
+      case 'picked-up':
+        return 'status-picked-up';
+      case 'in-transit':
+        return 'status-in-transit';
+      case 'delivered':
+        return 'status-delivered';
+      case 'failed':
+        return 'status-failed';
+      default:
+        return '';
     }
   }
 

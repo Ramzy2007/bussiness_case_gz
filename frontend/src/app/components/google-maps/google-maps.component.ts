@@ -1,11 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { Socket, SocketIoConfig, SocketIoModule } from "ngx-socket-io";
-import { WayPoints } from '../../interfaces/others';
-import { MapCustomService } from './map-custom.service';
-import { GoogleMap, GoogleMapsModule, MapDirectionsRenderer } from '@angular/google-maps';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
 import { Location } from '../../interfaces/package';
 
 
