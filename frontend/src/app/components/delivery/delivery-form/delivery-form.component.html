@@ -1,6 +1,4 @@
-<div class="delivery-form">
-  <mat-card>
-    <mat-card-content>
+
       <form #deliveryForm="ngForm" (ngSubmit)="onSubmit(deliveryForm)">
         <div class="example-row example-flex-container">
           <div class="input-block">
@@ -49,7 +47,7 @@
         End Time is required
       </mat-error>
     </mat-form-field>
-  
+
     <mat-form-field>
       <mat-label>Status</mat-label>
       <input matInput name="status" [(ngModel)]="delivery.status" required>
@@ -57,7 +55,7 @@
         Status is required
       </mat-error>
     </mat-form-field>
-    
+
     <mat-form-field>
       <mat-label>Pickup Time</mat-label>
       <input matInput name="pickup_time" [(ngModel)]="delivery.pickup_time" required type="datetime-local">
@@ -117,6 +115,3 @@
           </div>
         </div>
       </form>
-    </mat-card-content>
-  </mat-card>
-</div>

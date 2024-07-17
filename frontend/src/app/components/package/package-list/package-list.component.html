@@ -1,6 +1,6 @@
 <h3>{{ title }}</h3>
 
-<div class="mat-elevation-z8">
+<div class="example-container mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>Ref</th>
@@ -26,26 +26,35 @@
       <td mat-cell *matCellDef="let element">{{ element.to_address }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="dimension">
+    <!--  <ng-container matColumnDef="dimension">
       <th mat-header-cell *matHeaderCellDef>Dimension</th>
       <td mat-cell *matCellDef="let element">
         {{ element.width }} x {{ element.height }} x {{ element.depth }} cm
       </td>
-    </ng-container>
-
+    </ng-container>  -->
     <ng-container matColumnDef="from_location">
-      <th mat-header-cell *matHeaderCellDef>From Location</th>
+      <th mat-header-cell *matHeaderCellDef> From Location </th>
       <td mat-cell *matCellDef="let element">
-        Lat: {{ element.from_location.lat }}<br />
-        Lng: {{ element.to_location.lng }}
+        <div class="location-container">
+          <mat-icon>place</mat-icon>
+          <div class="location-details">
+            <div><strong>Latitude:</strong> {{ element.from_location.lat }}</div>
+            <div><strong>Longitude:</strong> {{ element.from_location.lng }}</div>
+          </div>
+        </div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="to_location">
-      <th mat-header-cell *matHeaderCellDef>To Location</th>
+      <th mat-header-cell *matHeaderCellDef> To Location </th>
       <td mat-cell *matCellDef="let element">
-        Lat: {{ element.from_location.lat }}<br />
-        Lng: {{ element.to_location.lng }}
+        <div class="location-container">
+          <mat-icon>place</mat-icon>
+          <div class="location-details">
+            <div><strong>Latitude:</strong> {{ element.to_location.lat }}</div>
+            <div><strong>Longitude:</strong> {{ element.to_location.lng }}</div>
+          </div>
+        </div>
       </td>
     </ng-container>
 
@@ -56,7 +65,7 @@
 
     <ng-container matColumnDef="createdAt">
       <th mat-header-cell *matHeaderCellDef>Created At</th>
-      <td mat-cell *matCellDef="let element">{{ element.createdAt }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.createdAt | date:'medium' }}</td>
     </ng-container>
 
     <!-- <ng-container matColumnDef="updatedAt">

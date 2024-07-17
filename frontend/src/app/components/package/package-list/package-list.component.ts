@@ -16,18 +16,22 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { PackageService } from '../../../services/package/package.service';
 import { ApiResponse } from '../../../interfaces/others';
+import { DatePipe } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-package-list',
   standalone: true,
   imports: [
-    ButtonModule,
+  ButtonModule,
     MatTableModule,
     RouterLink,
     MatPaginatorModule,
     MatInputModule,
     MatTableModule,
     MatSortModule,
+    DatePipe,
+    MatIconModule
   ],
   providers: [ConfirmationService],
   templateUrl: './package-list.component.html',
@@ -52,7 +56,7 @@ export class PackageListComponent implements AfterViewInit {
     'from_address',
     'to_name',
     'to_address',
-    'dimension',
+    // 'dimension',
     'from_location',
     'to_location',
     // 'description',

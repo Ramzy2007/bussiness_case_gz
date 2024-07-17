@@ -2,11 +2,18 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Delivery } from '../../../interfaces/delivery';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-delivery-detail',
   standalone: true,
-  imports: [CommonModule, MatDividerModule],
+  imports: [
+    CommonModule,
+    MatDividerModule,
+    MatCardModule,
+    MatIconModule
+  ],
   templateUrl: './delivery-detail.component.html',
   styleUrl: './delivery-detail.component.css',
 })

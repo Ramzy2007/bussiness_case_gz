@@ -1,15 +1,40 @@
-<div *ngIf="delivery">
-  <h4>Delivery Detail</h4>
+<mat-card class="delivery-detail" *ngIf="delivery">
+  <mat-card-header>
+    <mat-card-title>Delivery Detail</mat-card-title>
+  </mat-card-header>
   <mat-divider></mat-divider>
-  <strong>ID:</strong> {{ delivery._id }}<br />
-  <strong>Statut:</strong>
-  <div [ngClass]="getStatusClass(delivery.status!)">{{ delivery.status }}</div>
-  <br />
-  <strong>PickUp date:</strong> {{ delivery.pickup_time }}<br />
-  <strong>Start time:</strong> {{ delivery.start_time }}><br />
-  <strong>End time:</strong> {{ delivery.end_time }}<br />
-  <strong>Logitude:</strong> {{ delivery.location.lat }}<br />
-  <strong>Latitude:</strong> {{ delivery.location.lng }}<br />
-  <strong>Created At:</strong> {{ delivery.createdAt }}<br />
-  <strong>Updated At:</strong> {{ delivery.updatedAt }}<br />
-</div>
+  <mat-card-content>
+    <div class="detail-item">
+      <strong>ID:</strong> {{ delivery._id }}
+    </div>
+    <div class="detail-item">
+      <strong>Status:</strong>
+      <span [ngClass]="getStatusClass(delivery.status!)">{{ delivery.status }}</span>
+    </div>
+    <div class="detail-item">
+      <strong>PickUp Date:</strong> {{ delivery.pickup_time | date: 'medium' }}
+    </div>
+    <div class="detail-item">
+      <strong>Start Time:</strong> {{ delivery.start_time | date: 'medium' }}
+    </div>
+    <div class="detail-item">
+      <strong>End Time:</strong> {{ delivery.end_time | date: 'medium' }}
+    </div>
+    <div class="detail-item">
+      <strong>Location:</strong>
+      <div class="location-container">
+        <mat-icon>place</mat-icon>
+        <div class="location-details">
+          <div>Latitude: {{ delivery.location.lat }}</div>
+          <div>Longitude: {{ delivery.location.lng }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-item">
+      <strong>Created At:</strong> {{ delivery.createdAt | date: 'medium' }}
+    </div>
+    <div class="detail-item">
+      <strong>Updated At:</strong> {{ delivery.updatedAt | date: 'medium' }}
+    </div>
+  </mat-card-content>
+</mat-card>

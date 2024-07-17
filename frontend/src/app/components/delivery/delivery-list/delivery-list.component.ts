@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Delivery } from '../../../interfaces/delivery';
 import { DeliveryService } from '../../../services/delivery/delivery.service';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-delivery-list',
@@ -29,6 +30,7 @@ import { CommonModule } from '@angular/common';
     MatTableModule,
     MatSortModule,
     CommonModule,
+    MatIconModule
   ],
   providers: [ConfirmationService],
   templateUrl: './delivery-list.component.html',

@@ -1,21 +1,52 @@
-<div>
-  <div *ngIf="package">
-    <h4>Package Detail</h4>
-    <mat-divider></mat-divider>
-    <strong>ID:</strong> {{ package._id }}<br />
-    <strong>Weight:</strong> {{ package.weight }} kg<br />
-    <strong>Dimensions:</strong> {{ package.width }} x {{ package.height }} x
-    {{ package.depth }} cm<br />
-    <strong>From name:</strong> {{ package.from_name }},
-    {{ package.from_address }}<br />
-    <strong>To name:</strong> {{ package.to_name }}, {{ package.to_address
-    }}<br />
-    <strong>From Location:</strong> (Lat: {{ package.from_location.lat }}, Lng:
-    {{ package.from_location.lng }})<br />
-    <strong>To Location:</strong> (Lat: {{ package.to_location.lat }}, Lng:
-    {{ package.to_location.lng }})<br />
-    <strong>Description:</strong> {{ package.description }}<br />
-    <strong>Created At:</strong> {{ package.createdAt }}<br />
-    <strong>Updated At:</strong> {{ package.updatedAt }}<br />
-  </div>
-</div>
+<mat-card class="package-detail" *ngIf="package">
+  <mat-card-header>
+    <mat-card-title>Package Detail</mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <div class="detail-item">
+      <strong>ID:</strong> {{ package._id }}
+    </div>
+    <div class="detail-item">
+      <strong>Weight:</strong> {{ package.weight }} kg
+    </div>
+    <div class="detail-item">
+      <strong>Dimensions:</strong> {{ package.width }} x {{ package.height }} x {{ package.depth }} cm
+    </div>
+    <div class="detail-item">
+      <strong>From Name:</strong> {{ package.from_name }}, {{ package.from_address }}
+    </div>
+    <div class="detail-item">
+      <strong>To Name:</strong> {{ package.to_name }}, {{ package.to_address }}
+    </div>
+    <div class="detail-item">
+      <strong>From Location:</strong>
+      <div class="location-container">
+        <mat-icon>place</mat-icon>
+        <div class="location-details">
+          <div>Latitude: {{ package.from_location.lat }}</div>
+          <div>Longitude: {{ package.from_location.lng }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-item">
+      <strong>To Location:</strong>
+      <div class="location-container">
+        <mat-icon>place</mat-icon>
+        <div class="location-details">
+          <div>Latitude: {{ package.to_location.lat }}</div>
+          <div>Longitude: {{ package.to_location.lng }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-item">
+      <strong>Description:</strong> {{ package.description }}
+    </div>
+    <div class="detail-item">
+      <strong>Created At:</strong> {{ package.createdAt | date: 'medium' }}
+    </div>
+    <div class="detail-item">
+      <strong>Updated At:</strong> {{ package.updatedAt | date: 'medium' }}
+    </div>
+  </mat-card-content>
+</mat-card>

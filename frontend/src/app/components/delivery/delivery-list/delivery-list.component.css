@@ -36,3 +36,22 @@ th {
   color: red;
   font-weight: bold;
 }
+
+.location-container {
+  display: flex;
+  align-items: center;
+}
+
+.location-container mat-icon {
+  margin-right: 8px;
+  color: #0070f3;
+}
+
+.location-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.location-details div {
+  margin: 2px 0;
+}
