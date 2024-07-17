@@ -12,11 +12,6 @@ export class ApiService {
 
   // Used to make a GET request to the API
   get<T>(url: string, options: Options): Observable<T> {
-    console.log('########## 2 ##########');
-    console.log(options);
-    console.log('########## 3 ##########');
-    console.log(url);
-    console.log('########## 4 ##########');
     return this.httpClient.get<T>(url, options) as Observable<T>;
   }
 

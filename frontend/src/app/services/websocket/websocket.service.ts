@@ -18,33 +18,9 @@ export class WebsocketService {
 
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log('....................................................');
-      console.log(event.data);
-      console.log('*****************************************************');
       this.statusSubject.next(data.data);
     };
-
-    // this.socket.onclose = (event) => {
-    //   console.log('Close: ', event);
-    // };
   }
-
-  // public openWebSocket(){
-  //   this.socket = new WebSocket('ws://localhost:8080/delivery');
-
-  //   this.socket.onopen = (event) => {
-  //     console.log('Open: ', event);
-  //   };
-
-  //   this.webSocket.onmessage = (event) => {
-  //     const chatMessageDto = JSON.parse(event.data);
-  //     this.chatMessages.push(chatMessageDto);
-  //   };
-
-  //   this.webSocket.onclose = (event) => {
-  //     console.log('Close: ', event);
-  //   };
-  // }
 
   getStatusUpdates() {
     return this.statusSubject.asObservable();
