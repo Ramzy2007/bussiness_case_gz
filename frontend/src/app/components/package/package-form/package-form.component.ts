@@ -16,11 +16,11 @@ import { MatIconModule } from '@angular/material/icon';
     FormsModule,
     CommonModule,
     MatCardModule,
-    MatInputModule, 
+    MatInputModule,
     ReactiveFormsModule,
-    MatButtonModule, 
-    FormsModule, 
-    MatIconModule
+    MatButtonModule,
+    FormsModule,
+    MatIconModule,
   ],
   templateUrl: './package-form.component.html',
   styleUrl: './package-form.component.css',
@@ -28,11 +28,9 @@ import { MatIconModule } from '@angular/material/icon';
 export class PackageFormComponent {
   isEdit = false;
   packageId!: string;
-  title= 'Create Package';
+  title = 'Create Package';
 
-  constructor(
-    private packageService: PackageService,
-  ) {}
+  constructor(private packageService: PackageService) {}
 
   package: Package = {
     description: '',
@@ -55,38 +53,44 @@ export class PackageFormComponent {
     if (form.valid) {
       if (this.isEdit) {
         this.packageService
-        .editPackage(this.packageId, this.package)
-        .subscribe({
-          next: (data: ApiResponse) => {
-            console.log('Form submitted successfully!', this.package);
-          this.successMessage = 'The package has been upgrade successfully!';
-          this.errorMessage = ''; // Reset the error message
-          this.package = data.data as Package;
-          },
-          error: (error) => {
-            console.log(error);
-            this.errorMessage = 'Please correct the errors in the form.<br> ERROR:'+error.data.message;
-            this.successMessage = '';
-          }
-        });
+          .editPackage(this.packageId, this.package)
+          .subscribe({
+            next: (data: ApiResponse) => {
+              console.log('Form submitted successfully!', this.package);
+              this.successMessage =
+                'The package has been upgrade successfully!';
+              this.errorMessage = ''; // Reset the error message
+              this.package = data.data as Package;
+            },
+            error: (error) => {
+              console.log(error);
+              this.errorMessage =
+                'Please correct the errors in the form.<br> ERROR:' +
+                error.data.message;
+              this.successMessage = '';
+            },
+          });
       } else {
-      this.packageService
-        .addPackage('http://localhost:3000/api/package',this.package)
-        .subscribe({
-          next: (data: ApiResponse) => {
-            console.log('Form submitted successfully!', this.package);
-          this.successMessage = 'The package has been created successfully!';
-          this.errorMessage = ''; // Reset the error message
-          this.package = data.data as Package;
-          form.reset();
-          },
-          error: (error) => {
-            console.log(error);
-            this.errorMessage = 'Please correct the errors in the form.<br> ERROR:'+error.data.message;
-            this.successMessage = '';
-          }
-        });
+        this.packageService
+          .addPackage('http://localhost:3000/api/package', this.package)
+          .subscribe({
+            next: (data: ApiResponse) => {
+              console.log('Form submitted successfully!', this.package);
+              this.successMessage =
+                'The package has been created successfully!';
+              this.errorMessage = ''; // Reset the error message
+              this.package = data.data as Package;
+              form.reset();
+            },
+            error: (error) => {
+              console.log(error);
+              this.errorMessage =
+                'Please correct the errors in the form.<br> ERROR:' +
+                error.data.message;
+              this.successMessage = '';
+            },
+          });
+      }
     }
-  }
   }
 }

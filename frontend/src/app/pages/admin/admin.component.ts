@@ -18,16 +18,15 @@ import { Router } from '@angular/router';
     DeliveryListComponent,
     ButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
   ],
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.css'
+  styleUrl: './admin.component.css',
 })
-
 export class AdminComponent {
-  constructor( private router: Router) {}
+  constructor(private router: Router) {}
 
-   title = 'Web Admin';
+  title = 'Web Admin';
 
   navigateToCreatePackage() {
     this.router.navigate(['/admin-management/create-package']);
@@ -36,5 +35,4 @@ export class AdminComponent {
   navigateToCreateDelivery() {
     this.router.navigate(['/admin-management/create-delivery']);
   }
-
 }

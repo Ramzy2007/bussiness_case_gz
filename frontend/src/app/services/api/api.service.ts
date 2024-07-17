@@ -21,7 +21,7 @@ export class ApiService {
   }
 
   // Used to make a POST request to the API
-  post<T>(url: string, body: Package , options: Options): Observable<T> {
+  post<T>(url: string, body: Package, options: Options): Observable<T> {
     return this.httpClient.post<T>(url, body, options) as Observable<T>;
   }
 

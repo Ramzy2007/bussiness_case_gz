@@ -1,36 +1,35 @@
 .success-message {
-    color: green;
-    margin-top: 10px;
-  }
-  
-  .error-message {
-    color: red;
-    margin-top: 10px;
-  }
-  
-  .delivery-form{
-    color: aliceblue;
-    padding: 20px;
-  }
+  color: green;
+  margin-top: 10px;
+}
 
-  .center-title {
-    text-align: center;
-  }
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
 
-  .mat-form-field{
-    margin: 10px;
-  }
+.delivery-form {
+  color: aliceblue;
+  padding: 20px;
+}
 
-  .mat-mdc-form-field {
-    font-size: 14px;
-    width: 47%;
-    margin: 5px;
-  }
+.center-title {
+  text-align: center;
+}
 
-  .form-custom {
-    width: 31%;
-  }
+.mat-form-field {
+  margin: 10px;
+}
 
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 47%;
+  margin: 5px;
+}
+
+.form-custom {
+  width: 31%;
+}
 
 .example-flex-container {
   display: flex;
@@ -38,14 +37,14 @@
   justify-content: space-between;
 }
 
-.input-block, .button-block{
+.input-block,
+.button-block {
   margin: 8px 0;
 }
 
 .input-block {
   flex: 1 1 80%;
 }
-
 
 .button-block {
   flex: 1 1 20%;

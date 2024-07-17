@@ -8,7 +8,8 @@
     "migrate-up": "npx migrate-mongo up",
     "migrate-down": "npx migrate-mongo down",
     "migrate-create": "npx migrate-mongo create",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier -w ."
   },
   "author": "ALEGBEH Ibrahim",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.0",
     "morgan": "^1.10.0",
+    "prettier": "^3.3.3",
     "socket.io": "^4.7.5"
   }
 }

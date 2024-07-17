@@ -3,17 +3,15 @@ import { Package } from './package';
 import { Delivery } from './delivery';
 
 export interface Options {
-  headers?:
-    | HttpHeaders
-    | Record<string, string | string[]>;
+  headers?: HttpHeaders | Record<string, string | string[]>;
   observe?: 'body';
   context?: HttpContext;
   params?:
     | HttpParams
-    | Record<string, | string
-          | number
-          | boolean
-          | readonly (string | number | boolean)[]>;
+    | Record<
+        string,
+        string | number | boolean | readonly (string | number | boolean)[]
+      >;
   reportProgress?: boolean;
   responseType?: 'json';
   withCredentials?: boolean;
@@ -24,11 +22,10 @@ export interface Options {
     | boolean;
 }
 
-
-export interface ApiResponse{
-    status: number,
-    message: string,
-    data?: Package | Package[] | Delivery | Delivery[]
+export interface ApiResponse {
+  status: number;
+  message: string;
+  data?: Package | Package[] | Delivery | Delivery[];
 }
 
 export interface PaginationParams {
@@ -42,13 +39,13 @@ export interface PaginationParams {
 }
 
 export interface marker {
-	lat: number;
-	lng: number;
-	label?: string;
-	draggable: boolean;
+  lat: number;
+  lng: number;
+  label?: string;
+  draggable: boolean;
 }
 
 export class WayPoints {
   start: any;
-  end: any
+  end: any;
 }

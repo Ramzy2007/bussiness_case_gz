@@ -6,20 +6,27 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    MatCardModule,
-    RouterModule, 
-    CommonModule,
-  ],
+  imports: [RouterOutlet, MatCardModule, RouterModule, CommonModule],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
   title = 'Business Case';
   items = [
-    { title: 'ADMIN', link: 'admin-management', img: 'assets/images/admin.png' },
-    { title: 'CUSTOMER', link: 'tracker-management', img: 'assets/images/tracker.png' },
-    { title: 'DRIVER', link: 'driver-management', img: 'assets/images/driver.png' }
+    {
+      title: 'ADMIN',
+      link: 'admin-management',
+      img: 'assets/images/admin.png',
+    },
+    {
+      title: 'CUSTOMER',
+      link: 'tracker-management',
+      img: 'assets/images/tracker.png',
+    },
+    {
+      title: 'DRIVER',
+      link: 'driver-management',
+      img: 'assets/images/driver.png',
+    },
   ];
 }

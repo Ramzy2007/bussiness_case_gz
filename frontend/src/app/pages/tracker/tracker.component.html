@@ -7,10 +7,19 @@
           <form class="example-form" (ngSubmit)="onSearch()">
             <mat-form-field class="example-full-width">
               <mat-label>Package ID</mat-label>
-              <input type="text" matInput [formControl]="searchId" [errorStateMatcher]="matcher"
-                     placeholder="Enter Package ID">
+              <input
+                type="text"
+                matInput
+                [formControl]="searchId"
+                [errorStateMatcher]="matcher"
+                placeholder="Enter Package ID"
+              />
               <mat-hint>Errors appear instantly!</mat-hint>
-              <mat-error *ngIf="searchId.hasError('email') && !searchId.hasError('required')">
+              <mat-error
+                *ngIf="
+                  searchId.hasError('email') && !searchId.hasError('required')
+                "
+              >
                 Please enter a valid email address
               </mat-error>
               <mat-error *ngIf="searchId.hasError('required')">
@@ -26,42 +35,46 @@
         <div class="example-row example-flex-container">
           <div class="example-c-container package-info">
             <div class="detail">
-            <ng-container *ngIf="package !== null; else noPackage">
-              <div style="margin: 16px;">
-                <app-package-detail [package]="package"></app-package-detail>
-              </div>
-            </ng-container>
-            <ng-template #noPackage>
-              <div style="margin: 16px;">
-                <p>No package found.</p>
-              </div>
-            </ng-template>
+              <ng-container *ngIf="package !== null; else noPackage">
+                <div style="margin: 16px">
+                  <app-package-detail [package]="package"></app-package-detail>
+                </div>
+              </ng-container>
+              <ng-template #noPackage>
+                <div style="margin: 16px">
+                  <p>No package found.</p>
+                </div>
+              </ng-template>
+            </div>
+            <div class="detail">
+              <ng-container *ngIf="delivery !== null; else noDelivery">
+                <div style="margin: 16px">
+                  <app-delivery-detail
+                    [delivery]="delivery"
+                  ></app-delivery-detail>
+                </div>
+              </ng-container>
+              <ng-template #noDelivery>
+                <div style="margin: 16px">
+                  <p>No delivery found.</p>
+                </div>
+              </ng-template>
+            </div>
           </div>
-          <div class="detail">
-            <ng-container *ngIf="delivery !== null; else noDelivery">
-              <div style="margin: 16px;">
-                <app-delivery-detail [delivery]="delivery"></app-delivery-detail>
-              </div>
-            </ng-container>
-            <ng-template #noDelivery>
-              <div style="margin: 16px;">
-                <p>No delivery found.</p>
-              </div>
-            </ng-template>
-          </div>
-          </div>
-          <ng-container *ngIf="delivery !== undefined && package !== undefined; else noMap">
+          <ng-container
+            *ngIf="delivery !== undefined && package !== undefined; else noMap"
+          >
             <div class="map-card">
-              <app-google-maps 
-              [locationFrom]="locationFrom" 
-              [locationTo]="locationTo"
-              [location]="delivery.location"
+              <app-google-maps
+                [locationFrom]="locationFrom"
+                [locationTo]="locationTo"
+                [location]="delivery.location"
               >
               </app-google-maps>
             </div>
           </ng-container>
           <ng-template #noMap>
-            <div style="margin: 16px;">
+            <div style="margin: 16px">
               <p>Map not available.</p>
             </div>
           </ng-template>

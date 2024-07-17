@@ -1,16 +1,21 @@
 <div>
-<div *ngIf="package">
+  <div *ngIf="package">
     <h4>Package Detail</h4>
     <mat-divider></mat-divider>
-    <strong>ID:</strong> {{ package._id }}<br>
-    <strong>Weight:</strong> {{ package.weight }} kg<br>
-    <strong>Dimensions:</strong> {{ package.width }} x {{ package.height }} x {{ package.depth }} cm<br>
-    <strong>From name:</strong> {{ package.from_name }}, {{ package.from_address }}<br>
-    <strong>To name:</strong> {{ package.to_name }}, {{ package.to_address }}<br>
-    <strong>From Location:</strong> (Lat: {{ package.from_location.lat }}, Lng: {{ package.from_location.lng }})<br>
-    <strong>To Location:</strong> (Lat: {{ package.to_location.lat }}, Lng: {{ package.to_location.lng }})<br>
-    <strong>Description:</strong> {{ package.description }}<br>
-    <strong>Created At:</strong> {{ package.createdAt }}<br>
-    <strong>Updated At:</strong> {{ package.updatedAt }}<br>
+    <strong>ID:</strong> {{ package._id }}<br />
+    <strong>Weight:</strong> {{ package.weight }} kg<br />
+    <strong>Dimensions:</strong> {{ package.width }} x {{ package.height }} x
+    {{ package.depth }} cm<br />
+    <strong>From name:</strong> {{ package.from_name }},
+    {{ package.from_address }}<br />
+    <strong>To name:</strong> {{ package.to_name }}, {{ package.to_address
+    }}<br />
+    <strong>From Location:</strong> (Lat: {{ package.from_location.lat }}, Lng:
+    {{ package.from_location.lng }})<br />
+    <strong>To Location:</strong> (Lat: {{ package.to_location.lat }}, Lng:
+    {{ package.to_location.lng }})<br />
+    <strong>Description:</strong> {{ package.description }}<br />
+    <strong>Created At:</strong> {{ package.createdAt }}<br />
+    <strong>Updated At:</strong> {{ package.updatedAt }}<br />
   </div>
-</div> 
+</div>

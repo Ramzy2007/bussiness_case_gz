@@ -28,7 +28,7 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     MatTableModule,
     MatSortModule,
-    CommonModule
+    CommonModule,
   ],
   providers: [ConfirmationService],
   templateUrl: './delivery-list.component.html',
@@ -57,13 +57,9 @@ export class DeliveryListComponent implements AfterViewInit {
     'createdAt',
   ];
 
-
-
   dataSource = new MatTableDataSource<Delivery>();
 
-  constructor(
-    private deliveryService: DeliveryService,
-  ) {
+  constructor(private deliveryService: DeliveryService) {
     this.fetchDeliveries();
   }
 

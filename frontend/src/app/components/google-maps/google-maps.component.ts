@@ -6,17 +6,14 @@ import { Location } from '../../interfaces/package';
 @Component({
   selector: 'app-google-maps',
   standalone: true,
-  imports: [
-    CommonModule,
-    GoogleMapsModule
-  ],
+  imports: [CommonModule, GoogleMapsModule],
   templateUrl: './google-maps.component.html',
-  styleUrls: ['./google-maps.component.css']
+  styleUrls: ['./google-maps.component.css'],
 })
 export class GoogleMapsComponent implements OnInit {
   directionsService: google.maps.DirectionsService;
 
-  @ViewChild(GoogleMap) map!: GoogleMap; 
+  @ViewChild(GoogleMap) map!: GoogleMap;
 
   @Input() locationFrom!: Location;
   @Input() locationTo!: Location;
@@ -30,13 +27,13 @@ export class GoogleMapsComponent implements OnInit {
   current!: google.maps.LatLngLiteral;
 
   markerOptions: google.maps.MarkerOptions = {
-    draggable: false
-  }
+    draggable: false,
+  };
 
   markerPositions: google.maps.LatLngLiteral[] = [];
   infoWindows: google.maps.InfoWindow[] = [];
 
-  constructor() { 
+  constructor() {
     this.directionsService = new google.maps.DirectionsService();
   }
 
@@ -50,7 +47,7 @@ export class GoogleMapsComponent implements OnInit {
   }
 
   addMarker(event: google.maps.MapMouseEvent) {
-    if(event.latLng != null) {
+    if (event.latLng != null) {
       const position = event.latLng.toJSON();
       this.markerPositions.push(position);
       this.addInfoWindow(position, 'New Marker');
@@ -75,7 +72,7 @@ export class GoogleMapsComponent implements OnInit {
   addInfoWindow(position: google.maps.LatLngLiteral, content: string) {
     const infoWindow = new google.maps.InfoWindow({
       content: content,
-      position: position
+      position: position,
     });
     this.infoWindows.push(infoWindow);
   }
@@ -83,30 +80,36 @@ export class GoogleMapsComponent implements OnInit {
   calculateRoute() {
     if (this.locationFrom && this.locationTo) {
       const request: google.maps.DirectionsRequest = {
-        origin: new google.maps.LatLng(this.locationFrom.lat, this.locationFrom.lng),
-        destination: new google.maps.LatLng(this.locationTo.lat, this.locationTo.lng),
-        travelMode: google.maps.TravelMode.DRIVING
+        origin: new google.maps.LatLng(
+          this.locationFrom.lat,
+          this.locationFrom.lng,
+        ),
+        destination: new google.maps.LatLng(
+          this.locationTo.lat,
+          this.locationTo.lng,
+        ),
+        travelMode: google.maps.TravelMode.DRIVING,
       };
-  
+
       this.directionsService.route(request, (response, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
           const directionsRenderer = new google.maps.DirectionsRenderer();
-          
+
           if (this.map.googleMap) {
             directionsRenderer.setMap(this.map.googleMap);
             directionsRenderer.setDirections(response);
           } else {
-            console.error('La carte n\'est pas disponible');
+            console.error("La carte n'est pas disponible");
           }
         } else {
-          console.error('Erreur lors du calcul de l\'itinéraire: ' + status);
+          console.error("Erreur lors du calcul de l'itinéraire: " + status);
         }
       });
     }
   }
 
   showInfoWindows() {
-    this.infoWindows.forEach(infoWindow => {
+    this.infoWindows.forEach((infoWindow) => {
       infoWindow.open(this.map.googleMap);
     });
   }

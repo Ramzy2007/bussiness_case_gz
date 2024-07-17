@@ -1,13 +1,15 @@
 <div *ngIf="delivery">
-    <h4>Delivery Detail</h4>
-    <mat-divider></mat-divider>
-    <strong>ID:</strong> {{ delivery._id }}<br>
-    <strong>Statut:</strong><div [ngClass]="getStatusClass(delivery.status!)">{{ delivery.status }}</div><br>
-    <strong>PickUp date:</strong> {{ delivery.pickup_time }}<br>
-    <strong>Start time:</strong> {{ delivery.start_time }}><br>
-    <strong>End time:</strong> {{ delivery.end_time }}<br>
-    <strong>Logitude:</strong> {{ delivery.location.lat }}<br>
-    <strong>Latitude:</strong> {{ delivery.location.lng }}<br>
-    <strong>Created At:</strong> {{ delivery.createdAt }}<br>
-    <strong>Updated At:</strong> {{ delivery.updatedAt }}<br>
-  </div>
+  <h4>Delivery Detail</h4>
+  <mat-divider></mat-divider>
+  <strong>ID:</strong> {{ delivery._id }}<br />
+  <strong>Statut:</strong>
+  <div [ngClass]="getStatusClass(delivery.status!)">{{ delivery.status }}</div>
+  <br />
+  <strong>PickUp date:</strong> {{ delivery.pickup_time }}<br />
+  <strong>Start time:</strong> {{ delivery.start_time }}><br />
+  <strong>End time:</strong> {{ delivery.end_time }}<br />
+  <strong>Logitude:</strong> {{ delivery.location.lat }}<br />
+  <strong>Latitude:</strong> {{ delivery.location.lng }}<br />
+  <strong>Created At:</strong> {{ delivery.createdAt }}<br />
+  <strong>Updated At:</strong> {{ delivery.updatedAt }}<br />
+</div>

@@ -4,7 +4,14 @@ import { PackageDetailComponent } from '../../components/package/package-detail/
 import { DeliveryDetailComponent } from '../../components/delivery/delivery-detail/delivery-detail.component';
 import { PackageService } from '../../services/package/package.service';
 import { ApiResponse } from '../../interfaces/others';
-import { FormControl, FormGroupDirective, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroupDirective,
+  FormsModule,
+  NgForm,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,9 +26,16 @@ import { LocationService } from '../../services/location/location.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null,
+  ): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
   }
 }
 
@@ -32,16 +46,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     MatCardModule,
     PackageDetailComponent,
     DeliveryDetailComponent,
-    MatInputModule, 
+    MatInputModule,
     ReactiveFormsModule,
-    MatButtonModule, 
-    FormsModule, 
+    MatButtonModule,
+    FormsModule,
     MatIconModule,
     GoogleMapsComponent,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './driver.component.html',
-  styleUrl: './driver.component.css'
+  styleUrl: './driver.component.css',
 })
 export class DriverComponent implements OnInit, OnDestroy {
   title = 'Web Driver';
@@ -50,12 +64,11 @@ export class DriverComponent implements OnInit, OnDestroy {
   currentStatus!: string;
   private locationInterval: any;
 
-
   constructor(
     private deliveryService: DeliveryService,
     private packageService: PackageService,
     private websocketService: WebsocketService,
-    private locationService: LocationService
+    private locationService: LocationService,
   ) {}
 
   ngOnInit(): void {
@@ -65,70 +78,73 @@ export class DriverComponent implements OnInit, OnDestroy {
     });
 
     this.getLocation();
-   
   }
 
   searchId = new FormControl('', [Validators.required]);
   matcher = new MyErrorStateMatcher();
 
-  getLocation(){
+  getLocation() {
     this.locationInterval = setInterval(() => {
-      this.locationService.getLocation().then(position => {
-        const locationData = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        this.websocketService.sendLocation(
-          {
-            event: 'location_changed', 
-            delivery_id: this.delivery._id as string, 
-            location: locationData 
+      this.locationService
+        .getLocation()
+        .then((position) => {
+          const locationData = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          this.websocketService.sendLocation({
+            event: 'location_changed',
+            delivery_id: this.delivery._id as string,
+            location: locationData,
           });
-      }).catch(error => {
-        console.error('Error getting location: ', error);
-      });
+        })
+        .catch((error) => {
+          console.error('Error getting location: ', error);
+        });
     }, 20000);
   }
 
   onSearch() {
     if (this.searchId.valid) {
-      this.deliveryService.getDelivery(`http://localhost:3000/api/delivery/${this.searchId.value}`)
-      .subscribe({
-        next: (data: ApiResponse) => {
-          this.delivery = data.data as Delivery;
-          this.currentStatus= this.delivery.status as string;
+      this.deliveryService
+        .getDelivery(
+          `http://localhost:3000/api/delivery/${this.searchId.value}`,
+        )
+        .subscribe({
+          next: (data: ApiResponse) => {
+            this.delivery = data.data as Delivery;
+            this.currentStatus = this.delivery.status as string;
 
-          if (this.delivery.package !="") {
-            this.getPackage(this.delivery.package as string);
-          }
-        },
-        error: (error: any) => {
-          console.error('Error fetching delivery:', error);
-        }
-      });
+            if (this.delivery.package != '') {
+              this.getPackage(this.delivery.package as string);
+            }
+          },
+          error: (error: any) => {
+            console.error('Error fetching delivery:', error);
+          },
+        });
     }
   }
 
   getPackage(id: string) {
-
-    this.packageService.getPackage(`http://localhost:3000/api/package/${id}`)
+    this.packageService
+      .getPackage(`http://localhost:3000/api/package/${id}`)
       .subscribe({
         next: (data: ApiResponse) => {
           this.package = data.data as Package;
         },
         error: (error) => {
           console.error('Error fetching package:', error);
-        }
+        },
       });
   }
 
   changeStatus(newStatus: string): void {
-    this.websocketService.sendStatus(
-      { 
-        event: 'status_changed', 
-        delivery_id: this.delivery._id as string, 
-        status: newStatus 
-      }); // Use the new method
+    this.websocketService.sendStatus({
+      event: 'status_changed',
+      delivery_id: this.delivery._id as string,
+      status: newStatus,
+    }); // Use the new method
   }
 
   ngOnDestroy(): void {

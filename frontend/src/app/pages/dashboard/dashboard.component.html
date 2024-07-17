@@ -1,20 +1,23 @@
 <main class="main">
-    <div class="content">
-      <ng-container *ngFor="let item of items">
-        <a class="pill" [href]="item.link" rel="noopener">
-          <div class="left-side">
-            <mat-card class="example-card" appearance="outlined">
-              <mat-card-header>
-                <mat-card-title>{{ item.title }}</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <img mat-card-image [src]="item.img" alt="Image of {{ item.title }}" *ngIf="item.img">
-              </mat-card-content>
-            </mat-card>
-          </div>
-        </a>
-      </ng-container>
-    </div>
-  </main>
-  
-  
+  <div class="content">
+    <ng-container *ngFor="let item of items">
+      <a class="pill" [href]="item.link" rel="noopener">
+        <div class="left-side">
+          <mat-card class="example-card" appearance="outlined">
+            <mat-card-header>
+              <mat-card-title>{{ item.title }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <img
+                mat-card-image
+                [src]="item.img"
+                alt="Image of {{ item.title }}"
+                *ngIf="item.img"
+              />
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </a>
+    </ng-container>
+  </div>
+</main>

@@ -12,7 +12,7 @@ export class DeliveryService {
   // Getting packages from the API
   getDeliveries = (
     url: string,
-    params?: PaginationParams
+    params?: PaginationParams,
   ): Observable<ApiResponse> => {
     return this.apiService.get(url, {
       params,
@@ -20,8 +20,8 @@ export class DeliveryService {
     });
   };
 
-   // Adding a package via the API
-   addDelivery = (url: string, body: any): Observable<any> => {
+  // Adding a package via the API
+  addDelivery = (url: string, body: any): Observable<any> => {
     return this.apiService.post(url, body, {});
   };
 
@@ -35,9 +35,9 @@ export class DeliveryService {
     return this.apiService.delete(url, {});
   };
 
-  getDelivery( url: string): Observable<any> {
+  getDelivery(url: string): Observable<any> {
     return this.apiService.get(url, {
       responseType: 'json',
     });
-}
+  }
 }

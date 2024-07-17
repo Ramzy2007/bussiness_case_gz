@@ -6,11 +6,9 @@ import { MatDividerModule } from '@angular/material/divider';
 @Component({
   selector: 'app-delivery-detail',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatDividerModule,],
+  imports: [CommonModule, MatDividerModule],
   templateUrl: './delivery-detail.component.html',
-  styleUrl: './delivery-detail.component.css'
+  styleUrl: './delivery-detail.component.css',
 })
 export class DeliveryDetailComponent {
   @Input() delivery!: Delivery;

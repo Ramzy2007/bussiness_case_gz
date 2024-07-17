@@ -40,7 +40,7 @@ module.exports = tseslint.config(
       ...angular.configs.templateAccessibility,
     ],
     rules: {
-      "@angular-eslint/template/elements-content":"off",
+      "@angular-eslint/template/elements-content": "off",
     },
-  }
+  },
 );

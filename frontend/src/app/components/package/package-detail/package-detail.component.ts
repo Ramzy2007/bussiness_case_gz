@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Package } from '../../../interfaces/package';
-import {MatDividerModule} from '@angular/material/divider'
+import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,5 +23,4 @@ import { MatListModule } from '@angular/material/list';
 })
 export class PackageDetailComponent {
   @Input() package!: Package;
-
 }

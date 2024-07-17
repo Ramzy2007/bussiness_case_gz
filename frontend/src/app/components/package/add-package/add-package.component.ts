@@ -13,11 +13,11 @@ import { PackageFormComponent } from '../package-form/package-form.component';
     ButtonModule,
     MatIconModule,
     MatCardModule,
-    PackageFormComponent
+    PackageFormComponent,
   ],
   templateUrl: './add-package.component.html',
-  styleUrl: './add-package.component.css'
+  styleUrl: './add-package.component.css',
 })
 export class AddPackageComponent {
-  title= 'Create Package';
+  title = 'Create Package';
 }

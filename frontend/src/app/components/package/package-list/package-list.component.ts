@@ -62,9 +62,7 @@ export class PackageListComponent implements AfterViewInit {
 
   dataSource = new MatTableDataSource<any>();
 
-  constructor(
-    private packageService: PackageService,
-  ) {
+  constructor(private packageService: PackageService) {
     this.fetchPackages();
   }
 

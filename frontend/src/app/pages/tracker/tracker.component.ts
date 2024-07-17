@@ -4,7 +4,14 @@ import { PackageDetailComponent } from '../../components/package/package-detail/
 import { DeliveryDetailComponent } from '../../components/delivery/delivery-detail/delivery-detail.component';
 import { PackageService } from '../../services/package/package.service';
 import { ApiResponse } from '../../interfaces/others';
-import { FormControl, FormGroupDirective, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroupDirective,
+  FormsModule,
+  NgForm,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,9 +25,16 @@ import { WebsocketService } from '../../services/websocket/websocket.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null,
+  ): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
   }
 }
 
@@ -31,16 +45,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     MatCardModule,
     PackageDetailComponent,
     DeliveryDetailComponent,
-    MatInputModule, 
-    FormsModule, 
+    MatInputModule,
+    FormsModule,
     ReactiveFormsModule,
-    MatButtonModule, 
+    MatButtonModule,
     MatIconModule,
     GoogleMapsComponent,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './tracker.component.html',
-  styleUrls: ['./tracker.component.css']  // Corrected typo here
+  styleUrls: ['./tracker.component.css'], // Corrected typo here
 })
 export class TrackerComponent implements OnInit {
   title = 'Web Tracker';
@@ -48,12 +62,12 @@ export class TrackerComponent implements OnInit {
   delivery!: Delivery;
   locationFrom!: Location;
   locationTo!: Location;
-  location: Location = {lat: 0, lng: 0};
+  location: Location = { lat: 0, lng: 0 };
 
   constructor(
     private deliveryService: DeliveryService,
     private packageService: PackageService,
-    private websocketService: WebsocketService
+    private websocketService: WebsocketService,
   ) {}
 
   searchId = new FormControl('', [Validators.required]);
@@ -64,31 +78,31 @@ export class TrackerComponent implements OnInit {
     this.websocketService.getStatusUpdates().subscribe((data: any) => {
       this.delivery = data;
     });
-    
   }
-
 
   onSearch() {
     if (this.searchId.valid) {
-      this.packageService.getPackage(`http://localhost:3000/api/package/${this.searchId.value}`)
-      .subscribe({
-        next: (data: ApiResponse) => {
-          this.package = data.data as Package;
-          this.locationFrom = this.package.from_location;
-          this.locationTo = this.package.to_location;
-          if (this.package.active_delivery_id !== null) {
-            this.getDelivery(this.package.active_delivery_id as string);
-          }
-        },
-        error: (error) => {
-          console.error('Error fetching package:', error);
-        }
-      });
+      this.packageService
+        .getPackage(`http://localhost:3000/api/package/${this.searchId.value}`)
+        .subscribe({
+          next: (data: ApiResponse) => {
+            this.package = data.data as Package;
+            this.locationFrom = this.package.from_location;
+            this.locationTo = this.package.to_location;
+            if (this.package.active_delivery_id !== null) {
+              this.getDelivery(this.package.active_delivery_id as string);
+            }
+          },
+          error: (error) => {
+            console.error('Error fetching package:', error);
+          },
+        });
     }
   }
 
   getDelivery(id: string) {
-    this.deliveryService.getDelivery(`http://localhost:3000/api/delivery/${id}`)
+    this.deliveryService
+      .getDelivery(`http://localhost:3000/api/delivery/${id}`)
       .subscribe({
         next: (data: ApiResponse) => {
           this.delivery = data.data as Delivery;
@@ -96,7 +110,7 @@ export class TrackerComponent implements OnInit {
         },
         error: (error: any) => {
           console.error('Error fetching delivery:', error);
-        }
+        },
       });
   }
 }

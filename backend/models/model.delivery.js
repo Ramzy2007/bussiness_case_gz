@@ -1,23 +1,26 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const deliverySchema = new mongoose.Schema({
-  pickup_time: { type: Date, default: null },
-  start_time: { type: Date, default: null },
-  end_time: { type: Date, default: null },
-  location: {
-    lat: { type: Number, default: null, },
-    lng: { type: Number, default: null, },
+const deliverySchema = new mongoose.Schema(
+  {
+    pickup_time: { type: Date, default: null },
+    start_time: { type: Date, default: null },
+    end_time: { type: Date, default: null },
+    location: {
+      lat: { type: Number, default: null },
+      lng: { type: Number, default: null },
+    },
+    status: {
+      type: String,
+      enum: ["open", "picked-up", "in-transit", "delivered", "failed"],
+      default: "open",
+    },
+    package: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Package",
+      required: true,
+    },
   },
-  status: {
-    type: String,
-    enum: ['open', 'picked-up', 'in-transit', 'delivered', 'failed'],
-    default: 'open'
-  },
-  package: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Package',
-    required: true,
-  },
-}, { timestamps: true });
+  { timestamps: true },
+);
 
-module.exports = mongoose.model('Delivery', deliverySchema);
+module.exports = mongoose.model("Delivery", deliverySchema);

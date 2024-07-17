@@ -72,9 +72,9 @@
             <div class="example-row">
               <button
                 type="submit"
-                [ngClass]="{'disabled-button': currentStatus !== 'open'}"
+                [ngClass]="{ 'disabled-button': currentStatus !== 'open' }"
                 [disabled]="currentStatus !== 'open'"
-                style="background-color: blue;"
+                style="background-color: blue"
                 mat-fab
                 (click)="changeStatus('picked-up')"
               >
@@ -85,9 +85,9 @@
             <div class="example-row">
               <button
                 type="submit"
-                [ngClass]="{'disabled-button': currentStatus !== 'picked-up'}"
+                [ngClass]="{ 'disabled-button': currentStatus !== 'picked-up' }"
                 [disabled]="currentStatus !== 'picked-up'"
-                style="background-color: darkorange;"
+                style="background-color: darkorange"
                 mat-fab
                 (click)="changeStatus('in-transit')"
                 extended
@@ -99,8 +99,10 @@
               <button
                 type="submit"
                 [disabled]="currentStatus !== 'in-transit'"
-                [ngClass]="{'disabled-button': currentStatus !== 'in-transit'}"
-                style="background-color: forestgreen;"
+                [ngClass]="{
+                  'disabled-button': currentStatus !== 'in-transit',
+                }"
+                style="background-color: forestgreen"
                 mat-fab
                 (click)="changeStatus('delivered')"
                 extended
@@ -111,9 +113,11 @@
             <div class="example-row">
               <button
                 type="submit"
-                [ngClass]="{'disabled-button': currentStatus !== 'in-transit'}"
+                [ngClass]="{
+                  'disabled-button': currentStatus !== 'in-transit',
+                }"
                 [disabled]="currentStatus !== 'in-transit'"
-                style="background-color: crimson;"
+                style="background-color: crimson"
                 mat-fab
                 (click)="changeStatus('failed')"
                 extended

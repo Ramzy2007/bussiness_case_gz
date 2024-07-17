@@ -13,11 +13,11 @@ import { DeliveryFormComponent } from '../delivery-form/delivery-form.component'
     ButtonModule,
     MatIconModule,
     MatCardModule,
-    DeliveryFormComponent
+    DeliveryFormComponent,
   ],
   templateUrl: './add-delivery.component.html',
-  styleUrl: './add-delivery.component.css'
+  styleUrl: './add-delivery.component.css',
 })
 export class AddDeliveryComponent {
-  title= 'Create Package';
+  title = 'Create Package';
 }
