@@ -3,7 +3,7 @@ const { deleteDelivery, updateDelivery, createDelivery, getDelivery, getDeliveri
 
 const router = express.Router();
 
-// Get all Deliverys
+// Get all Deliveries
 router.get('', getDeliveries);
 
 // Get a single Delivery by ID

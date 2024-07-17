@@ -28,7 +28,7 @@ const getDeliveries = async (req, res) => {
 // For updating data 
 const getDelivery = async (req, res) => {
     try {
-        const id = req.params.id;
+        const {id} = req.params;
         const deliveryExist = await Delivery.findOne({ _id: id })
         if (!deliveryExist) {
             return sendErrorResponse(res, 'DELIVERY_NOT_FOUND',{ message: "Delivery not Found." });
@@ -42,7 +42,7 @@ const getDelivery = async (req, res) => {
 // For updating data 
 const updateDelivery = async (req, res) => {
     try {
-        const id = req.params.id;
+        const {id} = req.params;
         const deliveryExist = await Delivery.findOne({ _id: id })
         if (!deliveryExist) {
             return sendErrorResponse(res, 'DELIVERY_NOT_FOUND',{ message: "Delivery not Found." });
@@ -96,7 +96,7 @@ try {
 // For deleting data from database 
 const deleteDelivery = async (req, res) => {
     try {
-        const id = req.params.id;
+        const {id} = req.params;
         const deliveryExist = await Delivery.findOne({ _id: id })
         if (!deliveryExist) {
             return sendErrorResponse(res, 'DELIVERY_NOT_FOUND',{ message: "Delivery not Found." });

@@ -2,18 +2,14 @@ const express = require('express');
 const path = require("path");
 const http = require('http');
 const logger = require("morgan");
-const fs = require("fs");
-const socketIo = require('socket.io');
-const bodyParser = require('body-parser');
 const { connectDb } = require("./db/connect");
-const winstonLogger = require("./config/logger");
 const cors = require('cors');
 const WebSocket = require('ws');
 
 const packageRoutes = require('./routes/route.package');
 const deliveryRoutes = require('./routes/route.delivery');
 
-const { sendErrorResponse, sendSuccessResponse } = require("./utils/responses");
+const { sendErrorResponse } = require("./utils/responses");
 const Delivery = require('./models/model.delivery'); // Ensure the Delivery model is imported
 const Package = require('./models/model.package');
 
@@ -35,7 +31,7 @@ app.use(cors({
 }));
 
 app.get("/", (req, res) => {
-  res.send("Hello from Node API Server Updated");
+  res.send("business Case API");
 });
 
 app.use('/api/package', packageRoutes);
@@ -86,7 +82,9 @@ handleLocationChanged = async (data) => {
   const { delivery_id, location } = data;
 
   const delivery = await Delivery.findById(delivery_id);
-  if (!delivery) throw new Error('Delivery not found');
+  if (!delivery) {
+    throw new Error('Delivery not found');
+  }
 
   delivery.location = location;
   await delivery.save(); // Persist changes
@@ -101,19 +99,25 @@ handleLocationChanged = async (data) => {
 handleStatusChanged = async (data) => {
   const { delivery_id, status } = data;
   const delivery = await Delivery.findById(delivery_id);
-  if (!delivery) throw new Error('Delivery not found');
+  if (!delivery) {
+    throw new Error('Delivery not found');
+  }
 
   const currentTime = new Date().toISOString();
   const validStatuses = ['picked-up', 'in-transit', 'delivered', 'failed'];
 
-  if (!validStatuses.includes(status)) throw new Error('Invalid status');
+  if (!validStatuses.includes(status)) {
+    throw new Error('Invalid status');
+  }
 
   delivery.status = status;
 
   switch (status) {
       case 'picked-up':
           const package = await Package.findById(delivery.package);
-          if (!package) throw new Error('Package not found');
+          if (!package) {
+            throw new Error('Package not found');
+          }
           delivery.pickup_time = currentTime;
           package.active_delivery_id = delivery._id;
           await delivery.save(); 
@@ -141,8 +145,6 @@ handleStatusChanged = async (data) => {
 app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  winstonLogger.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
 
   if (err.status === 401) {
     return sendErrorResponse(res, 'UNAUTHORIZED');

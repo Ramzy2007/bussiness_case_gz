@@ -29,7 +29,7 @@ const getPackages = async (req, res) => {
 // For updating data 
 const getPackage = async (req, res) => {
     try {
-        const id = req.params.id;
+        const {id} = req.params;
         const packageExist = await Package.findOne({ _id: id })
         if (!packageExist) {
             return sendErrorResponse(res, 'PACKAGE_NOT_FOUND',{ message: "Package not Found." });
@@ -42,7 +42,7 @@ const getPackage = async (req, res) => {
 // For updating data 
 const updatePackage = async (req, res) => {
     try {
-        const id = req.params.id;
+        const {id} = req.params;
         const packageExist = await Package.findOne({ _id: id })
         if (!packageExist) {
             return sendErrorResponse(res, 'PACKAGE_NOT_FOUND',{ message: "Package not Found." });
@@ -56,7 +56,7 @@ const updatePackage = async (req, res) => {
 // For deleting data from database 
 const deletePackage = async (req, res) => {
     try {
-        const id = req.params.id;
+        const {id} = req.params;
         const packageExist = await Package.findOne({ _id: id })
         if (!packageExist) {
             return sendErrorResponse(res, 'PACKAGE_NOT_FOUND',{ message: "Package not Found." });
