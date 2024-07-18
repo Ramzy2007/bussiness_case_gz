@@ -35,26 +35,26 @@
         <div class="example-row example-flex-container">
           <div class="example-c-container package-info">
             <div class="detail">
-              <ng-container *ngIf="package !== null; else noPackage">
+              <ng-container class="content-container" *ngIf="package !== null; else noPackage">
                 <div style="margin: 16px">
                   <app-package-detail [package]="package"></app-package-detail>
                 </div>
               </ng-container>
-              <ng-template #noPackage>
+              <ng-template class="content-container" #noPackage>
                 <div style="margin: 16px">
                   <p>No package found.</p>
                 </div>
               </ng-template>
             </div>
             <div class="detail">
-              <ng-container *ngIf="delivery !== null; else noDelivery">
+              <ng-container class="content-container" *ngIf="delivery !== null; else noDelivery">
                 <div style="margin: 16px">
                   <app-delivery-detail
                     [delivery]="delivery"
                   ></app-delivery-detail>
                 </div>
               </ng-container>
-              <ng-template #noDelivery>
+              <ng-template class="content-container" #noDelivery>
                 <div style="margin: 16px">
                   <p>No delivery found.</p>
                 </div>

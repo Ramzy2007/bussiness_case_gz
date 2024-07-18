@@ -47,7 +47,7 @@ section {
 }
 
 .package-info {
-  flex: 1 1 40%;
+  flex: 1 2 80%;
 }
 
 .map-card {
@@ -68,10 +68,10 @@ section {
   margin-bottom: 8px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
   .package-info,
   .status-buttons {
-    flex: 1 1 100%;
+    flex: 1 2 100%;
   }
 }
 
